@@ -2,7 +2,7 @@
 name: KPT 회고
 about: Describe this issue template's purpose here.
 title: "[KPT] 0주차 O요일"
-labels: ''
+labels: 'retrospect'
 assignees: ''
 
 ---
