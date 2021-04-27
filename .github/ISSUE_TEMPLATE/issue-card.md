@@ -1,7 +1,7 @@
 ---
 name: Issue Card
 about: Codestates issue card template
-title: ''
+title: "[Server/Client] "
 labels: issue card
 assignees: ''
 
