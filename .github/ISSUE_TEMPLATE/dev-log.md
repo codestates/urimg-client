@@ -1,6 +1,6 @@
 ---
 name: Dev Log
-about: Describe this issue template's purpose here.
+about: 프로젝트에 대해서 여러분들이 기여한 흔적을 개발 일지(dev-log) 형식으로 남깁니다.
 title: "[Dev Log] Name / 2021-00-00"
 labels: dev-log
 assignees: ''

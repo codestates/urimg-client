@@ -1,6 +1,6 @@
 ---
 name: Error Handling Card
-about: Describe this issue template's purpose here.
+about: 프로젝트 진행중에 만난 에러를 어떻게 해결했는지 기록합니다.
 title: ''
 labels: Error
 assignees: ''

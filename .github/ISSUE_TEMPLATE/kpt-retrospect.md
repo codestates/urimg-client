@@ -1,5 +1,5 @@
 ---
-name: KPT 회고
+name: KPT Retrospect
 about: Describe this issue template's purpose here.
 title: "[KPT] 0주차 O요일"
 labels: retrospect
