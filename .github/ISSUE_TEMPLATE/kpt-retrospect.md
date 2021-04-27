@@ -1,6 +1,7 @@
 ---
 name: KPT Retrospect
-about: Describe this issue template's purpose here.
+about: 프로젝트 기간 매주 월요일, 목요일 오후 5시 팀 코드리뷰 시간에 회고를 진행합니다. 작성한 회고 이슈 카드 링크를 화요일, 금요일 아침
+  10시에 팀장님이 초대된 슬랙 im_project 채널에서 공유합니다.
 title: "[KPT] 0주차 O요일"
 labels: retrospect
 assignees: ''
