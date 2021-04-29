@@ -6,14 +6,14 @@ import { imagesData } from "../fakeData/images";
 import ImageList from "../components/ImageList"
 
 const Main = () => {
-    console.log(imagesData)
-    const [images, setImages] = useState(imagesData);
+  console.log(imagesData)
+  const [images, setImages] = useState(imagesData);
 
-    return (
-        <div className="App">
-            <ImageList images={images}/>
-        </div>
-    )
+  return (
+    <div className="App">
+      <ImageList images={images}/>
+    </div>
+  )
 }
 
 export default withRouter(Main);
