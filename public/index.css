@@ -16,6 +16,10 @@ code {
     monospace;
 }
 
+img {
+  object-fit: cover;
+}
+
 /* App */
 .App {
   text-align: center;
@@ -56,6 +60,22 @@ code {
   }
 }
 
+/* Main */
+.navbar {
+  height: 3rem;
+  display: flex;
+  flex-flow: row wrap;
+}
+
+.image-list{
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.image {
+  width: 100%;
+}
 
 /* for loading indicator */
 
