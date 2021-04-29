@@ -1,10 +1,10 @@
-import React from 'react';
 import Search from './Search';
+import { withRouter } from "react-router-dom";
 
-const Nav = ({ handleButtonClick }) => {
+const Nav = ({ handleButtonClick, history }) => {
   return (
     <nav className="navbar">
-      <div className="nav-logo">
+      <div className="nav-logo" onClick={() => {}}>
         logo
       </div>
       <div className="nav-search">
@@ -22,4 +22,4 @@ const Nav = ({ handleButtonClick }) => {
   );
 }
 
-export default Nav;
+export default withRouter(Nav);
