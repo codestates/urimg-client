@@ -6,8 +6,7 @@ const ImageList = ({ images }) => {
     <div className="image-list">
     { images.map(image =>
     <ImageListEntry image={image} key={image.id}/>
-    )
-    }
+    )}
     </div>
   )
 }
