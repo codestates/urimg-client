@@ -77,6 +77,13 @@ img {
   width: 100%;
 }
 
+/* Search */
+.search-headder {
+  font-size: 2rem;
+  font-weight: 500;
+}
+
+
 /* for loading indicator */
 
 .lds-container {
