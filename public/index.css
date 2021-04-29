@@ -60,7 +60,13 @@ img {
   }
 }
 
-/* for image list */
+/* Main */
+.navbar {
+  height: 3rem;
+  display: flex;
+  flex-flow: row wrap;
+}
+
 .image-list{
   width: 100%;
   display: grid;
