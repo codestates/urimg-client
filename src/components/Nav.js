@@ -1,10 +1,11 @@
+import React from "react";
 import Search from './Search';
 import { withRouter } from "react-router-dom";
 
-const Nav = ({ handleButtonClick, history }) => {
+const Nav = ({ handleButtonClick, handleLogoClick, history }) => {
   return (
     <nav className="navbar">
-      <div className="nav-logo" onClick={() => {}}>
+      <div className="nav-logo" onClick={() => {handleLogoClick()}}>
         logo
       </div>
       <div className="nav-search">
@@ -14,7 +15,7 @@ const Nav = ({ handleButtonClick, history }) => {
         <button className="upload-btn">
           사진 업로드
         </button>
-        <button className="login-btn">
+        <button className="login-btn" onClick={() => {history.push("/login")}}>
           로그인
         </button>
       </div>
