@@ -34,7 +34,7 @@ const Login = (props)=>{
     })
     .catch((err)=>{    // 중복일때 아직 안만듬
       if(err.status===401){
-        setErrorMessage('강비 하지 않은 이메일 이거나 잘못된 비밀번호 입니다.')
+        setErrorMessage('가입하지 않은 이메일 이거나 잘못된 비밀번호 입니다.')
       }
     })
   }
