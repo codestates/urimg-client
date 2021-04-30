@@ -24,7 +24,7 @@ const Login = (props)=>{
     .then(resp=>{
       setIsLogin(true)                          // app.js 에서 로그인 핸들러 만들어서 상태 올려야함
       setAccessToken(resp.data.access_token)
-      return axios.get(process.env.REACT_APP_API_URL+'/user/login',{
+      return axios.get(process.env.REACT_APP_API_URL+'/user/userinfo',{
         'Content-Type': 'application/json',
         Authorization: `Bearer ${resp.data.access_token}`
       })
