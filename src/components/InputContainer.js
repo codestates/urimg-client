@@ -1,6 +1,6 @@
 import React,{useEffect, useState} from "react";
 
-const InputContainer = ({type, placeholder, handler, isValid=true})=>{
+const InputContainer = ({type, placeholder, handler, validChecker=()=>{}, isValid=true})=>{
     
     return(
         <div className='input-box'>
@@ -8,6 +8,7 @@ const InputContainer = ({type, placeholder, handler, isValid=true})=>{
             type={type}
             placeholder={placeholder}
             onChange={(e)=>handler(e.target.value)}
+            onBlur={(e)=>validChecker(e.target.value)}
             ></input>
             {
                 isValid?(
