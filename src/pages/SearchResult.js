@@ -1,22 +1,23 @@
+import React from "react";
+import { withRouter } from "react-router-dom";
 import ImageList from '../components/ImageList';
 
-const SearchResult = ({ searchImages }) => {
-  if (searchImages.length === 0) {
-    return (
-      <span>
-        검색 결과가 없습니다.
-      </span>
-    )
-  }
-
+const SearchResult = ({ searchImages, searchKeyword }) => {
   return (
     <div className="search-result">
-      <span>
+      <div className="search-headder">{searchKeyword}</div>
+      { searchImages.length === 0 ? (
+        <div>
+        검색 결과가 없습니다.
+        </div>
+      ) : (
+        <div>
         검색 결과 {searchImages.length}건
-      </span>
+        </div>
+      )}
       <ImageList images={searchImages}/>
     </div>
   )
 }
 
-export default SearchResult
+export default withRouter(SearchResult);
