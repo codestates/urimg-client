@@ -1,7 +1,7 @@
 import React,{useState} from "react";
 import { Link, withRouter } from "react-router-dom";
 import axios from "axios";
-
+import InputContainer from '../components/InputContainer'
 axios.defaults.withCredentials = true;
 
 const Login = (props)=>{
@@ -17,12 +17,8 @@ const Login = (props)=>{
         <center>
           <h1>Sign In</h1>
           <form onSubmit={(e) => e.preventDefault()}>
-            <div>
-              <input type='text' placeholder='email' onChange={(e)=>setEmail(e.target.value)}></input>
-            </div>
-            <div>
-              <input type='password' placeholder='password' onChange={(e)=>setPassword(e.target.value)}></input>
-            </div>
+            <InputContainer type={'text'} placeholder={'email'} handler={setEmail} />
+            <InputContainer type={'password'} placeholder={'password'} handler={setPassword} />
             <div>
               {/* <Link to='/signup'>아직 아이디가 없으신가요?</Link> */} 
             </div>
