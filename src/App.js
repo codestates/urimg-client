@@ -6,6 +6,7 @@ import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import SearchResult from "./pages/SearchResult";
 import Nav from "./components/Nav";
+import Modal from "./components/Modal";
 
 import { imagesData } from "./fakeData/images";
 
@@ -13,6 +14,8 @@ const App = ({ history }) => {
   const [ images, setImages ] = useState(imagesData);
   const [ searchImages, setSearchImages ] = useState(null);
   const [ searchKeyword, setSearchKeyword ] = useState('');
+  const [ isModalOpen, setIsModalOpen ] = useState(false);
+  const [ modalContent, setModalContent ] = useState('');
 
   const getImages = () => {
     // 서버에서 이미지를 불러와서 setImages
@@ -36,8 +39,21 @@ const App = ({ history }) => {
     history.push("/");
   }
 
+  const openModal = () => {
+    setIsModalOpen(true);
+  }
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+  }
+
+  const changeModalContent = (value) => {
+    setModalContent(value);
+  }
+
   return (
     <div className="App">
+      <Modal isOpen={isModalOpen} close={closeModal} content={modalContent}/>
       <Nav handleButtonClick={getSearchImages} handleLogoClick={clearSearchImages}/>
       <Switch>
         <Route
