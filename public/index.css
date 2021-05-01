@@ -20,6 +20,19 @@ img {
   object-fit: cover;
 }
 
+ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+li {
+  margin: 0;
+  width: 3rem;
+  border: none;
+  float: left;
+}
+
 /* App */
 .App {
   text-align: center;
@@ -63,6 +76,7 @@ img {
 /* Main */
 .navbar {
   height: 3rem;
+  padding: 1rem;
   display: flex;
   flex-flow: row nowrap;
   justify-content: space-between;
@@ -109,6 +123,14 @@ img {
 .user-info {
   padding: 30px;
   text-align: left;
+}
+
+.image-list-type {
+  height: 3rem;
+  padding: 1rem;
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
 }
 
 /* Search */
