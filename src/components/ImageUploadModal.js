@@ -1,7 +1,7 @@
 import React from 'react';
+import ImageUpload from './ImageUpload';
 
-const Modal = ({ isOpen, close, content }) => {
-  console.log('모달 랜더')
+const Modal = ({ isOpen, close, handleFileChange, uploadImage, imageUrl }) => {
   return (
     <React.Fragment>
       { isOpen
@@ -10,7 +10,11 @@ const Modal = ({ isOpen, close, content }) => {
           <div className="modal-overlay" onClick={close} />
           <div className="modal-box">
             <div className="modal-content">
-              {content}
+              <ImageUpload
+                handleFileChange={handleFileChange}
+                uploadImage={uploadImage}
+                imageUrl={imageUrl}
+              />
             </div>
           </div>
         </div>
