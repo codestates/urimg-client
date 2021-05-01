@@ -6,6 +6,7 @@ import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import SearchResult from "./pages/SearchResult";
 import Nav from "./components/Nav";
+import ImageUploadModal from "./components/ImageUploadModal";
 
 import { imagesData } from "./fakeData/images";
 
@@ -13,6 +14,9 @@ const App = ({ history }) => {
   const [ images, setImages ] = useState(imagesData);
   const [ searchImages, setSearchImages ] = useState(null);
   const [ searchKeyword, setSearchKeyword ] = useState('');
+  const [ isModalOpen, setIsModalOpen ] = useState(false);
+  const [ imageUploadModalContent, setImageUploadModalContent ] = useState('');
+  const [ imageUrl, setImageUrl ] = useState('');
 
   const getImages = () => {
     // 서버에서 이미지를 불러와서 setImages
@@ -36,9 +40,45 @@ const App = ({ history }) => {
     history.push("/");
   }
 
+  const openImageUploadModal = (value) => {
+    // history.push("/");
+    setIsModalOpen(true);
+    setImageUploadModalContent(value);
+  }
+
+  const closeImageUploadModal = () => {
+    // history.goBack();
+    setIsModalOpen(false);
+    setImageUrl('');
+  }
+
+  const handleFileChange = (event) => {
+    const reader = new FileReader();
+    const file = event.target.files[0];
+    reader.onloadend = () => {
+      setImageUrl(reader.result);
+    }
+    reader.readAsDataURL(file);
+  }
+
+  const uploadImage = () => {
+    // 서버에 받은 이미지를 업로드하는 함수
+  }
+
   return (
     <div className="App">
-      <Nav handleButtonClick={getSearchImages} handleLogoClick={clearSearchImages}/>
+      <ImageUploadModal
+        isOpen={isModalOpen}
+        close={closeImageUploadModal}
+        handleFileChange={handleFileChange}
+        uploadImage={uploadImage}
+        imageUrl={imageUrl}
+      />
+      <Nav
+        handleButtonClick={getSearchImages}
+        handleLogoClick={clearSearchImages}
+        openModal={openImageUploadModal}
+      />
       <Switch>
         <Route
         exact path='/main'
@@ -46,7 +86,11 @@ const App = ({ history }) => {
         />
         <Route
          exact path='/search'
-         render={() => (<SearchResult searchImages={searchImages} searchKeyword={searchKeyword}/>)}
+         render={() => (
+          <SearchResult
+            searchImages={searchImages}
+            searchKeyword={searchKeyword}
+          />)}
          />
         <Route
         exact path='/login'
