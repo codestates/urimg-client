@@ -48,8 +48,16 @@ const Login = (props)=>{
         <center>
           <h1>Sign In</h1>
           <form onSubmit={(e) => e.preventDefault()}>
-            <InputContainer type={'text'} placeholder={'email'} handler={setEmail} />
-            <InputContainer type={'password'} placeholder={'password'} handler={setPassword} />
+            <InputContainer 
+              type={'text'} 
+              placeholder={'email'} 
+              handler={setEmail} 
+            />
+            <InputContainer 
+              type={'password'} 
+              placeholder={'password'} 
+              handler={setPassword} 
+            />
             <button className='btn btn-login' type='submit' onClick={handleLogin}>
               login
             </button>
