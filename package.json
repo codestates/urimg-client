@@ -37,6 +37,10 @@
     ]
   },
   "devDependencies": {
+<<<<<<< HEAD
+=======
+    "dotenv": "^8.2.0",
+>>>>>>> 38b525de2503e2968a19894c0bcb5bed4477988d
     "eslint": "^7.25.0"
   }
 }

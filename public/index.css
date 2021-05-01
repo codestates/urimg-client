@@ -84,6 +84,56 @@ img {
 }
 
 
+/* Modal */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background-color: rgba(0, 0, 0, 0.15);
+}
+
+.modal-box {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 10px;
+  background-color: white;
+  box-shadow: 0px 3px 6px rgba(0,0,0,0.16);
+}
+
+.modal-content {
+  margin: 10px;
+}
+
+/* ImageUpload */
+.upload-area {
+  display: flex;
+  flex-flow: column wrap;
+  justify-content: center;
+  width: 50vw;
+  height: 10vh;
+  background-color: rgb(225, 225, 225);
+  color: rgb(120, 120, 120);
+  text-align: center;
+}
+
+.image-preview {
+  max-width: 90vw;
+  max-height: 90vh;
+}
+
+.input-submit-btn {
+  margin: 0.3rem;
+  padding: 0.3rem;
+}
+
+#input-file {
+  display: none;
+}
+
 /* for loading indicator */
 
 .lds-container {
