@@ -64,7 +64,21 @@ img {
 .navbar {
   height: 3rem;
   display: flex;
-  flex-flow: row wrap;
+  flex-flow: row nowrap;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.nav-logo-and-search {
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+}
+
+.nav-user-control {
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
 }
 
 .image-list{
@@ -75,6 +89,26 @@ img {
 
 .image {
   width: 100%;
+}
+
+/* Mypage */
+.user-info-area {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: center;
+  align-items: center;
+}
+
+.user-profile-img {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  background-size: cover;
+}
+
+.user-info {
+  padding: 30px;
+  text-align: left;
 }
 
 /* Search */
