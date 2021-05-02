@@ -3,7 +3,9 @@ import { Link, withRouter,useHistory } from "react-router-dom";
 import axios from "axios";
 import InputContainer from '../components/InputContainer';
 import { useDispatch, useSelector } from 'react-redux';
-import { login, getUserInfo } from '../actions/index';
+import { login } from '../actions/index';
+import {refreshAccessToken} from '../functions/Request';        // 엑세스 토큰 재요청 함수
+
 axios.defaults.withCredentials = true;
 
 const SetPassword = ()=>{ 
@@ -30,6 +32,9 @@ const SetPassword = ()=>{
       history.push('/setting/profile')
     })
     .catch((err)=>{
+      if(err.response.status===401){              
+        refreshAccessToken( dispatch(login(accessToken)) )   //엑세스 토큰 재요청 
+      }
     })
   }
 
