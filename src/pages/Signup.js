@@ -1,8 +1,9 @@
 import React,{useState} from "react";
 import { withRouter, Link, useHistory } from "react-router-dom";
 import axios from "axios";
-import InputContainer from '../components/InputContainer'
-import dotenv from 'dotenv'
+import InputContainer from '../components/InputContainer';
+import dotenv from 'dotenv';
+
 
 dotenv.config()
 
@@ -79,10 +80,32 @@ const Signup = ()=>{
         <center>
           <h1>Sign Up</h1>
           <form onSubmit={(e) => e.preventDefault()}>
-            <InputContainer type={'text'} placeholder={'email'} handler={setEmail} validChecker={emailChecker} isValid={isValidEmail}/>
-            <InputContainer type={'text'} placeholder={'username'} handler={setUserName}/>
-            <InputContainer type={'password'} placeholder={'password'} handler={setPassword} validChecker={passwordChecker} isValid={isValidPassword}/>
-            <InputContainer type={'password'} placeholder={'password agian'} handler={setPasswordConfirm} validChecker={samePasswordChecker} isValid={isPasswordSame}/>
+            <InputContainer 
+              type={'text'} 
+              placeholder={'email'} 
+              handler={setEmail} 
+              validChecker={emailChecker} 
+              isValid={isValidEmail}
+            />
+            <InputContainer 
+              type={'text'} 
+              placeholder={'username'} 
+              handler={setUserName}
+            />
+            <InputContainer 
+              type={'password'} 
+              placeholder={'password'} 
+              handler={setPassword} 
+              validChecker={passwordChecker} 
+              isValid={isValidPassword}
+            />
+            <InputContainer 
+              type={'password'} 
+              placeholder={'password agian'} 
+              handler={setPasswordConfirm} 
+              validChecker={samePasswordChecker} 
+              isValid={isPasswordSame}
+            />
 
             <button
               className="btn btn-signup"

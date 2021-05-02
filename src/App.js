@@ -8,8 +8,10 @@ import SearchResult from "./pages/SearchResult";
 import Mypage from "./pages/Mypage";
 import Nav from "./components/Nav";
 import ImageUploadModal from "./components/ImageUploadModal";
+import SetUserInfo from './pages/SetUserInfo';
 
 import { imagesData } from "./fakeData/images";
+import SetPassword from "./pages/SetPassword";
 
 
 const App = ({ history }) => {
@@ -106,6 +108,14 @@ const App = ({ history }) => {
         exact path='/mypage'
         render={() => <Mypage userInfo={userInfo} />}
         />
+        <Route
+        exact path='/setting/profile'
+        render={() => (<SetUserInfo />)}
+        />
+        <Route
+        exact path='/setting/password'
+        render={() => <SetPassword />}
+        />       
         <Route path='/' render={() => {
           if (!searchImages) {
             return <Redirect to='/main' />;
