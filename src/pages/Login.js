@@ -1,7 +1,9 @@
 import React,{useState} from "react";
 import { Link, withRouter,useHistory } from "react-router-dom";
 import axios from "axios";
-import InputContainer from '../components/InputContainer'
+import InputContainer from '../components/InputContainer';
+import { useDispatch, useSelector } from 'react-redux';
+import { login, getUserInfo } from '../actions/index';
 axios.defaults.withCredentials = true;
 
 const Login = (props)=>{
@@ -10,9 +12,9 @@ const Login = (props)=>{
   const[password,setPassword] = useState('password')
   const[errorMessage,setErrorMessage] = useState('')
 
-  const[isLogin,setIsLogin] = useState('false')   // 로그인 상태관리는 나중에 app.js 에서
-  const[accessToken,setAccessToken] = useState('') // 로그인 상태관리는 나중에 app.js 에서
-  const[userInfo,setUserInfo] = useState('')  // 유저 상태 관리 app.js 로
+  const state = useSelector(state=>state.userReducer);
+  const { loinStatus, userInfo } = state
+  const dispatch = useDispatch();
 
   const handleLogin = ()=>{
     axios.post(process.env.REACT_APP_API_URL+'/user/login',{ // ec2 엔드포인드주소 
@@ -22,8 +24,7 @@ const Login = (props)=>{
       'Content-Type': 'application/json'             
     })
     .then(resp=>{
-      setIsLogin(true)                          // app.js 에서 로그인 핸들러 만들어서 상태 올려야함
-      setAccessToken(resp.data.data.access_token)
+      dispatch(login(resp.data.data.access_token))
       return axios.get(process.env.REACT_APP_API_URL+'/user/userinfo',{
         headers:{
           'Content-Type': 'application/json',
@@ -32,7 +33,7 @@ const Login = (props)=>{
       })
     })
     .then(resp=>{
-      setUserInfo(resp.data)
+      dispatch(getUserInfo(resp.data))
       history.push('/')
     })
     .catch((err)=>{    // 중복일때 아직 안만듬
