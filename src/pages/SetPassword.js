@@ -2,16 +2,24 @@ import React,{useState, useEffect} from "react";
 import { Link, withRouter,useHistory } from "react-router-dom";
 import axios from "axios";
 import InputContainer from '../components/InputContainer';
+import { useDispatch, useSelector } from 'react-redux';
+import { login } from '../actions/index';
+import {refreshAccessToken} from '../functions/Request';        // 엑세스 토큰 재요청 함수
+
 axios.defaults.withCredentials = true;
 
-const SetPassword = ({username, email, accessToken=null})=>{  // 아직 토큰없어서 기본값 null
-  const history = useHistory(); //  히스토리
+const SetPassword = ()=>{ 
 
+  const history = useHistory(); //  히스토리
   const[password,setPassword] = useState('')
   const[passwordConfirm,setPasswordConfirm] = useState('')
   const[isValidPassword,setIsValidPassword] = useState(true)  // 비밀번호 유효성
   const[isPasswordSame,setIsPasswordSame] = useState(true)  // 비밀번호 재확인
   const[errorMessage,setErrorMessage] = useState('')
+  const state = useSelector(state=>state.userReducer);
+  const { loginStatus, userInfo } = state
+  const dispatch = useDispatch();
+  const {accessToken} = loginStatus
 
   const handlePasswordEdit = ()=>{
     axios.patch(process.env.REACT_APP_API_URL+'/user/userinfo',{ 
@@ -24,6 +32,9 @@ const SetPassword = ({username, email, accessToken=null})=>{  // 아직 토큰�
       history.push('/setting/profile')
     })
     .catch((err)=>{
+      if(err.response.status===401){              
+        refreshAccessToken( dispatch(login(accessToken)) )   //엑세스 토큰 재요청 
+      }
     })
   }
 

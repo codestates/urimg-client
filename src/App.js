@@ -7,8 +7,10 @@ import Signup from "./pages/Signup";
 import SearchResult from "./pages/SearchResult";
 import Nav from "./components/Nav";
 import ImageUploadModal from "./components/ImageUploadModal";
+import SetUserInfo from './pages/SetUserInfo';
 
 import { imagesData } from "./fakeData/images";
+import SetPassword from "./pages/SetPassword";
 
 const App = ({ history }) => {
   const [ images, setImages ] = useState(imagesData);
@@ -100,6 +102,14 @@ const App = ({ history }) => {
         exact path='/signup'
         render={() => <Signup />}
         />
+        <Route
+        exact path='/setting/profile'
+        render={() => (<SetUserInfo />)}
+        />
+        <Route
+        exact path='/setting/password'
+        render={() => <SetPassword />}
+        />       
         <Route path='/' render={() => {
           if (!searchImages) {
             return <Redirect to='/main' />;

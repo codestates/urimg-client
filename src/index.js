@@ -3,11 +3,16 @@ import ReactDOM from 'react-dom';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { BrowserRouter } from 'react-router-dom';
+import { Provider } from 'react-redux';
+import { login } from './actions';
+import store from './store/store';
 
 ReactDOM.render(
+  <Provider store={store}>
   <BrowserRouter>
     <App />
-  </BrowserRouter>,
+  </BrowserRouter>
+  </Provider>,
   document.getElementById('root')
 );
 
