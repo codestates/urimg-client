@@ -8,7 +8,7 @@ import { imagesData } from "../fakeData/images";
 
 axios.defaults.withCredentials = true;
 
-const Mypage = ({ userInfo, loginStatus }) => {
+const Mypage = ({ userInfo, loginStatus, history }) => {
   const dispatch = useDispatch();
   const [ images, setImages ] = useState([]);
   let profileImage = loginStatus.profile_image;
@@ -52,7 +52,7 @@ const Mypage = ({ userInfo, loginStatus }) => {
           <div className="user-info">
             <p>{userInfo.user_name}</p>
             <p>{userInfo.email}</p>
-            <button>회원정보 수정</button>
+            <button onClick={() => history.push("/setting/profile")}>회원정보 수정</button>
           </div>
         </div>
         <div className="image-list-type">
