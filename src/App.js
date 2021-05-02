@@ -7,7 +7,6 @@ import Signup from "./pages/Signup";
 import SearchResult from "./pages/SearchResult";
 import Nav from "./components/Nav";
 import ImageUploadModal from "./components/ImageUploadModal";
-import setPassword from './pages/SetPassword';
 import SetUserInfo from './pages/SetUserInfo';
 
 import { imagesData } from "./fakeData/images";
