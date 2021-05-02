@@ -1,32 +1,45 @@
 import React, { useState, useEffect } from "react";
 import { withRouter } from "react-router-dom";
+import { useDispatch } from 'react-redux';
 import ImageList from "../components/ImageList";
+import axios from "axios";
 
 import { imagesData } from "../fakeData/images";
 
-const Mypage = ({ userInfo }) => {
+axios.defaults.withCredentials = true;
+
+const Mypage = ({ userInfo, loginStatus }) => {
+  const dispatch = useDispatch();
   const [ images, setImages ] = useState([]);
+  let profileImage = loginStatus.profile_image;
 
-  if (JSON.stringify(userInfo) === '{}') {
-    userInfo = {
-      "id": "8LaX7CyhXx4",
-      "user_name": "fake name",
-      "email": "fake@email.com",
-      "profile_image": "default-profile_640.png",
-    }
-  }
+  useEffect(() => getImages('upload'), [])
 
-  useEffect(() => getUserImages(), [])
+  const getImages = (type) => {
+    // axios.get(`${process.env.REACT_APP_API_URL}/img/mypage`, {
+    //   type: type
+    // }, {
+    //   headers : {
+    //     'Content-Type': 'application/json',
+    //     Authorization: `Bearer ${loginStatus.accessToken}`,
+    //     withCredentials: true
+    //   }
+    // })
+    // .then((res) => {
+    //   setImages(res.data.data.images)
+    // })
+    // .catch((err) => {
+    //   if(err.response.status === 401){              
+    //     // 리프레시 토큰으로 액세스 토큰 재발급
+    //   }
+    // })
 
-  const getUserImages = () => {
-    // 서버에 요청해서 유저가 올린 이미지 데이터 리스트를 받아오는 함수 작성 예정
     const userImages = imagesData.filter((image) => image.user.id === userInfo.id );
     setImages(userImages);
   }
 
-  const getLikedImages = () => {
-    // 서버에 요청해서 유저가 좋아요 표시한 이미지 데이터 리스트를 받아오는 함수 작성 예정
-    setImages(imagesData);
+  if (!profileImage) {
+    profileImage = 'default-profile-picture_640.png'
   }
 
   return (
@@ -34,7 +47,7 @@ const Mypage = ({ userInfo }) => {
         <div className="user-info-area">
           <div
             className="user-profile-img"
-            style={{ backgroundImage: `url(${userInfo.profile_image})` }}>
+            style={{ backgroundImage: `url(${profileImage})` }}>
           </div>
           <div className="user-info">
             <p>{userInfo.user_name}</p>
@@ -44,8 +57,8 @@ const Mypage = ({ userInfo }) => {
         </div>
         <div className="image-list-type">
           <ul>
-            <li onClick={getUserImages}>Photo</li>
-            <li onClick={getLikedImages}>Like</li>
+            <li onClick={() => getImages('upload')}>Photo</li>
+            <li onClick={() => getImages('like')}>Like</li>
           </ul>
         </div>
         <ImageList images={images} />

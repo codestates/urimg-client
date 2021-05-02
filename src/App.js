@@ -1,18 +1,19 @@
 import React, { useState } from "react";
 import { Switch, Route, Redirect, withRouter } from "react-router-dom";
+import { useSelector } from 'react-redux';
 
 import Main from "./pages/Main";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import SearchResult from "./pages/SearchResult";
 import Mypage from "./pages/Mypage";
-import Nav from "./components/Nav";
-import ImageUploadModal from "./components/ImageUploadModal";
 import SetUserInfo from './pages/SetUserInfo';
-
-import { imagesData } from "./fakeData/images";
 import SetPassword from "./pages/SetPassword";
 
+import Nav from "./components/Nav";
+import ImageUploadModal from "./components/ImageUploadModal";
+
+import { imagesData } from "./fakeData/images";
 
 const App = ({ history }) => {
   const [ images, setImages ] = useState(imagesData);
@@ -20,8 +21,9 @@ const App = ({ history }) => {
   const [ searchKeyword, setSearchKeyword ] = useState('');
   const [ isImageUploadModalOpen, setIsImageUploadModalOpen ] = useState(false);
   const [ imageUrl, setImageUrl ] = useState('');
-  const [ isLogin, setIsLogin ] = useState(false);
-  const [ userInfo, setUserInfo ] = useState({});
+
+  const state = useSelector(state => state.userReducer);
+  const { loginStatus, userinfo } = state;
 
   const getImages = () => {
     // 서버에서 이미지를 불러와서 setImages
@@ -82,6 +84,7 @@ const App = ({ history }) => {
         handleButtonClick={getSearchImages}
         handleLogoClick={clearSearchImages}
         openModal={openImageUploadModal}
+        loginStatus={loginStatus}
       />
       <Switch>
         <Route
@@ -106,7 +109,7 @@ const App = ({ history }) => {
         />
         <Route
         exact path='/mypage'
-        render={() => <Mypage userInfo={userInfo} />}
+        render={() => <Mypage userInfo={userinfo} loginStatus={loginStatus} />}
         />
         <Route
         exact path='/setting/profile'
