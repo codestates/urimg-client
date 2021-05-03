@@ -14,6 +14,7 @@ import Nav from "./components/Nav";
 import ImageUploadModal from "./components/ImageUploadModal";
 
 import { imagesData } from "./fakeData/images";
+import ImageDetail from "./pages/ImageDetail";
 
 const App = ({ history }) => {
   const [ images, setImages ] = useState(imagesData);
@@ -21,6 +22,7 @@ const App = ({ history }) => {
   const [ searchKeyword, setSearchKeyword ] = useState('');
   const [ isImageUploadModalOpen, setIsImageUploadModalOpen ] = useState(false);
   const [ imageUrl, setImageUrl ] = useState('');
+  const [ singleImage, setSingleImage ] = useState(imagesData[0]);
 
   const state = useSelector(state => state.userReducer);
   const { loginStatus, userinfo } = state;
@@ -71,6 +73,11 @@ const App = ({ history }) => {
     // 서버에 받은 이미지를 업로드하는 함수
   }
 
+  const redirectToImage = (image) => {
+    setSingleImage(image);
+    history.push("/image");
+  }
+
   return (
     <div className="App">
       <ImageUploadModal
@@ -89,7 +96,7 @@ const App = ({ history }) => {
       <Switch>
         <Route
         exact path='/main'
-        render={() => (<Main images={images} />)}
+        render={() => (<Main images={images} redirectToImage={redirectToImage}/>)}
         />
         <Route
          exact path='/search'
@@ -97,6 +104,7 @@ const App = ({ history }) => {
           <SearchResult
             searchImages={searchImages}
             searchKeyword={searchKeyword}
+            redirectToImage={redirectToImage}
           />)}
          />
         <Route
@@ -118,7 +126,11 @@ const App = ({ history }) => {
         <Route
         exact path='/setting/password'
         render={() => <SetPassword />}
-        />       
+        />
+        <Route
+        exact path='/image'
+        render={() => <ImageDetail image={singleImage}/>}
+        />
         <Route path='/' render={() => {
           if (!searchImages) {
             return <Redirect to='/main' />;
