@@ -8,10 +8,14 @@ import { imagesData } from "../fakeData/images";
 
 axios.defaults.withCredentials = true;
 
-const Mypage = ({ userInfo, loginStatus, history }) => {
+const Mypage = ({ userInfo, isLogin, history }) => {
+  if (!isLogin) {
+    history.push("/login");
+  }
+
   const dispatch = useDispatch();
   const [ images, setImages ] = useState([]);
-  let profileImage = loginStatus.profile_image;
+  let profileImage = userInfo.profile_image;
 
   useEffect(() => getImages('upload'), [])
 

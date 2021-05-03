@@ -2,7 +2,7 @@ import React from "react";
 import { withRouter } from "react-router-dom";
 import axios from "axios";
 
-const ImageDetail = ({ image, loginStatus, history }) => {
+const ImageDetail = ({ image, isLogin, history }) => {
   const likeImage = () => {
       // axios.post(`${process.env.REACT_APP_API_URL}/img/like`, {
       //   image_id: image.id
@@ -28,7 +28,7 @@ const ImageDetail = ({ image, loginStatus, history }) => {
         <div className="image-description">{image.description}</div>
         <div className="image-detail-header">
           <div className="username">{image.user.username}</div>
-          {loginStatus.isLogin ? (
+          {isLogin ? (
             <button className="like-btn" onClick={likeImage}>like</button> 
             ) : 
             null}
