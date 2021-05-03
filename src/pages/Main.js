@@ -3,10 +3,10 @@ import { withRouter } from "react-router-dom";
 
 import ImageList from "../components/ImageList";
 
-const Main = ({ images }) => {
+const Main = ({ images, redirectToImage }) => {
   return (
     <div className="Main">
-        <ImageList images={images}/>
+        <ImageList images={images} redirectToImage={redirectToImage}/>
     </div>
   )
 }

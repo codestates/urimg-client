@@ -2,7 +2,7 @@ import React from "react";
 import { withRouter } from "react-router-dom";
 import ImageList from '../components/ImageList';
 
-const SearchResult = ({ searchImages, searchKeyword }) => {
+const SearchResult = ({ searchImages, searchKeyword, redirectToImage }) => {
   return (
     <div className="search-result">
       <div className="search-headder">{searchKeyword}</div>
@@ -15,7 +15,7 @@ const SearchResult = ({ searchImages, searchKeyword }) => {
         검색 결과 {searchImages.length}건
         </div>
       )}
-      <ImageList images={searchImages}/>
+      <ImageList images={searchImages} redirectToImage={redirectToImage}/>
     </div>
   )
 }

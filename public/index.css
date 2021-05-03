@@ -35,7 +35,11 @@ li {
 
 /* App */
 .App {
-  text-align: center;
+  display: flex;
+  flex-flow: column nowrap;
+}
+.App .image-detail {
+  align-self: center;
 }
 
 .App-logo {
@@ -103,6 +107,18 @@ li {
 
 .image {
   width: 100%;
+}
+
+.image-detail {
+  width: 70%;
+  display: flex;
+  flex-flow: column nowrap;
+}
+
+.image-detail-header {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-between;
 }
 
 /* Mypage */
