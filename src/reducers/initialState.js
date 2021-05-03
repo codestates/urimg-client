@@ -8,8 +8,20 @@ export const initialState =
         "created_at": null,
         "updated_at": null
     },
-  "loginStatus":{
+  "loginStatus": {
       "isLogin": false,
       "accessToken": ''
-    }
+    },
+  "images": [
+
+  ],
+  "searchImages": [
+
+  ],
+  "searchKeyword": '',
+  "isImageUploadModalOpen": false,
+  "imageUrl": '',
+  "singleImage": {
+    
+  }
 }

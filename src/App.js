@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import React, { useEffect } from "react";
 import { Switch, Route, Redirect, withRouter } from "react-router-dom";
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import Main from "./pages/Main";
 import Login from "./pages/Login";
@@ -9,26 +9,34 @@ import SearchResult from "./pages/SearchResult";
 import Mypage from "./pages/Mypage";
 import SetUserInfo from './pages/SetUserInfo';
 import SetPassword from "./pages/SetPassword";
+import ImageDetail from "./pages/ImageDetail";
 
 import Nav from "./components/Nav";
 import ImageUploadModal from "./components/ImageUploadModal";
 
 import { imagesData } from "./fakeData/images";
-import ImageDetail from "./pages/ImageDetail";
+import { setImages,
+  setSearchImages,
+  setSearchKeyword, 
+  setIsImageUploadModalOpen,
+  setImageUrl,
+  setSingleImage } from './actions/index';
+
 
 const App = ({ history }) => {
-  const [ images, setImages ] = useState(imagesData);
-  const [ searchImages, setSearchImages ] = useState(null);
-  const [ searchKeyword, setSearchKeyword ] = useState('');
-  const [ isImageUploadModalOpen, setIsImageUploadModalOpen ] = useState(false);
-  const [ imageUrl, setImageUrl ] = useState('');
-  const [ singleImage, setSingleImage ] = useState(imagesData[0]);
+  const dispatch = useDispatch();
 
-  const state = useSelector(state => state.userReducer);
-  const { loginStatus, userinfo } = state;
+  const loginInfo = useSelector(state => state.userReducer);
+  const { loginStatus, userinfo } = loginInfo;
+
+  const imageInfo = useSelector(state => state.imageReducer);
+  const { images, searchImages, searchKeyword,
+    isImageUploadModalOpen, imageUrl, singleImage } = imageInfo;
+
+  useEffect(() => getImages(), [])
 
   const getImages = () => {
-    // 서버에서 이미지를 불러와서 setImages
+    dispatch(setImages(imagesData));
   }
 
   const getSearchImages = (query) => {
@@ -37,26 +45,33 @@ const App = ({ history }) => {
     아래는 기능 체크를 위해 하드코딩된 데이터에서 검색한 후
     이미지 리스트를 변경하는 코드를 임시로 작성한 것입니다
     */
-    setSearchKeyword(query);
-    setSearchImages(
-      images.filter(image => image.alt_description.includes(query))
+    dispatch(setSearchKeyword(query));
+    dispatch(
+      setSearchImages(
+        images.filter(image => image.alt_description.includes(query))
+      )
     );
+
     history.push("/");
   }
 
   const clearSearchImages = () => {
-    setSearchImages(null);
+    dispatch(setSearchImages([]));
     history.push("/");
   }
 
   const openImageUploadModal = () => {
     // history.push("/");
-    setIsImageUploadModalOpen(true);
+    dispatch(
+      setIsImageUploadModalOpen(true)
+    )
   }
 
   const closeImageUploadModal = () => {
     // history.goBack();
-    setIsImageUploadModalOpen(false);
+    dispatch(
+      setIsImageUploadModalOpen(false)
+    )
     setImageUrl('');
   }
 
@@ -64,7 +79,7 @@ const App = ({ history }) => {
     const reader = new FileReader();
     const file = event.target.files[0];
     reader.onloadend = () => {
-      setImageUrl(reader.result);
+      dispatch(setImageUrl(reader.result));
     }
     reader.readAsDataURL(file);
   }
@@ -74,7 +89,7 @@ const App = ({ history }) => {
   }
 
   const redirectToImage = (image) => {
-    setSingleImage(image);
+    dispatch(setSingleImage(image));
     history.push("/image");
   }
 
@@ -96,7 +111,11 @@ const App = ({ history }) => {
       <Switch>
         <Route
         exact path='/main'
-        render={() => (<Main images={images} redirectToImage={redirectToImage}/>)}
+        render={() => (
+          <Main
+            images={images}
+            redirectToImage={redirectToImage}
+          />)}
         />
         <Route
          exact path='/search'
@@ -132,7 +151,7 @@ const App = ({ history }) => {
         render={() => <ImageDetail image={singleImage}/>}
         />
         <Route path='/' render={() => {
-          if (!searchImages) {
+          if (searchImages.length === 0) {
             return <Redirect to='/main' />;
           }
           return <Redirect to='/search' />;
