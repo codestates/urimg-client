@@ -1,24 +1,29 @@
 import React, { useState } from "react";
 import { Switch, Route, Redirect, withRouter } from "react-router-dom";
+import { useSelector } from 'react-redux';
 
 import Main from "./pages/Main";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import SearchResult from "./pages/SearchResult";
+import Mypage from "./pages/Mypage";
+import SetUserInfo from './pages/SetUserInfo';
+import SetPassword from "./pages/SetPassword";
+
 import Nav from "./components/Nav";
 import ImageUploadModal from "./components/ImageUploadModal";
-import SetUserInfo from './pages/SetUserInfo';
 
 import { imagesData } from "./fakeData/images";
-import SetPassword from "./pages/SetPassword";
 
 const App = ({ history }) => {
   const [ images, setImages ] = useState(imagesData);
   const [ searchImages, setSearchImages ] = useState(null);
   const [ searchKeyword, setSearchKeyword ] = useState('');
-  const [ isModalOpen, setIsModalOpen ] = useState(false);
-  const [ imageUploadModalContent, setImageUploadModalContent ] = useState('');
+  const [ isImageUploadModalOpen, setIsImageUploadModalOpen ] = useState(false);
   const [ imageUrl, setImageUrl ] = useState('');
+
+  const state = useSelector(state => state.userReducer);
+  const { loginStatus, userinfo } = state;
 
   const getImages = () => {
     // 서버에서 이미지를 불러와서 setImages
@@ -42,15 +47,14 @@ const App = ({ history }) => {
     history.push("/");
   }
 
-  const openImageUploadModal = (value) => {
+  const openImageUploadModal = () => {
     // history.push("/");
-    setIsModalOpen(true);
-    setImageUploadModalContent(value);
+    setIsImageUploadModalOpen(true);
   }
 
   const closeImageUploadModal = () => {
     // history.goBack();
-    setIsModalOpen(false);
+    setIsImageUploadModalOpen(false);
     setImageUrl('');
   }
 
@@ -70,7 +74,7 @@ const App = ({ history }) => {
   return (
     <div className="App">
       <ImageUploadModal
-        isOpen={isModalOpen}
+        isOpen={isImageUploadModalOpen}
         close={closeImageUploadModal}
         handleFileChange={handleFileChange}
         uploadImage={uploadImage}
@@ -80,11 +84,12 @@ const App = ({ history }) => {
         handleButtonClick={getSearchImages}
         handleLogoClick={clearSearchImages}
         openModal={openImageUploadModal}
+        loginStatus={loginStatus}
       />
       <Switch>
         <Route
         exact path='/main'
-        render={() => (<Main images={images}/>)}
+        render={() => (<Main images={images} />)}
         />
         <Route
          exact path='/search'
@@ -101,6 +106,10 @@ const App = ({ history }) => {
         <Route
         exact path='/signup'
         render={() => <Signup />}
+        />
+        <Route
+        exact path='/mypage'
+        render={() => <Mypage userInfo={userinfo} loginStatus={loginStatus} />}
         />
         <Route
         exact path='/setting/profile'

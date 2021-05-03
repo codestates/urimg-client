@@ -1,15 +1,16 @@
-export const LOG_IN = "LOG_IN";
+export const SET_LOGIN_STATUS = "SET_LOGIN_STATUS";
 export const GET_USER_INFO = "GET_USER_INFO";
 // actions creator functions
-export const login = (accessToken) => {
+export const setLoginStatus = (accessToken, isLogin) => {
   return {
-    type: LOG_IN,
+    type: SET_LOGIN_STATUS,
     payload: {
-      isLogin: true,
+      isLogin: isLogin,
       accessToken
     }
   }
 }
+
 export const getUserInfo = (userinfo) => {
   return {
     type: GET_USER_INFO,
