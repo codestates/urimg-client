@@ -25,6 +25,7 @@ const ImageDetail = ({ image, loginStatus, history }) => {
 
     return (
       <div className="image-detail">
+        <div className="image-description">{image.description}</div>
         <div className="image-detail-header">
           <div className="username">{image.user.username}</div>
           {loginStatus.isLogin ? (
