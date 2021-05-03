@@ -7,7 +7,7 @@ import { login, getUserInfo } from '../actions/index';
 
 axios.defaults.withCredentials = true;
 
-const Login = (props)=>{
+const Login = ()=>{
   const history = useHistory(); //  히스토리
   const[email,setEmail] = useState('email')
   const[password,setPassword] = useState('password')
