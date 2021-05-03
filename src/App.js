@@ -148,7 +148,7 @@ const App = ({ history }) => {
         />
         <Route
         exact path='/image'
-        render={() => <ImageDetail image={singleImage}/>}
+        render={() => <ImageDetail image={singleImage} loginStatus={loginStatus}/>}
         />
         <Route path='/' render={() => {
           if (searchImages.length === 0) {

@@ -115,6 +115,12 @@ li {
   flex-flow: column nowrap;
 }
 
+.image-detail-header {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-between;
+}
+
 /* Mypage */
 .user-info-area {
   display: flex;

@@ -13,39 +13,33 @@ const imageReducer = (state = initialState, action) => {
         images: action.payload
       })
 
-      break;
     case SET_SEARCH_IMAGES:
     return Object.assign({}, state, {
       searchImages: action.payload
     })
 
-      break;
     case SET_SEARCH_KEYWORD:
     return Object.assign({}, state, {
       searchKeyword: action.payload
     })
 
-      break;
     case SET_IS_IMAGE_UPLOAD_MODAL_OPEN:
       return Object.assign({}, state, {
         isImageUploadModalOpen: action.payload
       })
-  
-       break;
+
     case SET_IMAGE_URL:
       return Object.assign({}, state, {
         imageUrl: action.payload
       })
-    
-      break;
+
     case SET_SINGLE_IMAGE:
       return Object.assign({}, state, {
         singleImage: {
           ...action.payload
         }
       })
-      
-      break;
+
     default:
       return state;
   }
