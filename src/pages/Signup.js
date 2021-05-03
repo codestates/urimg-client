@@ -76,8 +76,8 @@ const Signup = ()=>{
 
 
     return(
-      <div>
-        <center>
+      <div className='log-in-sign-up-area'>
+        <div className='log-in-sign-up'>
           <h1>Sign Up</h1>
           <form onSubmit={(e) => e.preventDefault()}>
             <InputContainer 
@@ -125,7 +125,7 @@ const Signup = ()=>{
               )
             }
           </form>
-        </center>
+        </div>
       </div>
     )
 }

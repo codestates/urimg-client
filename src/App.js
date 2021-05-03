@@ -113,7 +113,11 @@ const App = ({ history }) => {
         />
         <Route
         exact path='/setting/profile'
-        render={() => (<SetUserInfo />)}
+        render={() => (
+          <SetUserInfo 
+            handleFileChange={handleFileChange}
+            imageUrl={imageUrl}
+          />)}
         />
         <Route
         exact path='/setting/password'
