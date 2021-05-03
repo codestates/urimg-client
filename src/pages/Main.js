@@ -5,7 +5,7 @@ import ImageList from "../components/ImageList";
 
 const Main = ({ images }) => {
   return (
-    <div className="App">
+    <div className="Main">
         <ImageList images={images}/>
     </div>
   )

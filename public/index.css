@@ -20,6 +20,19 @@ img {
   object-fit: cover;
 }
 
+ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+li {
+  margin: 0;
+  width: 3rem;
+  border: none;
+  float: left;
+}
+
 /* App */
 .App {
   text-align: center;
@@ -63,8 +76,23 @@ img {
 /* Main */
 .navbar {
   height: 3rem;
+  padding: 1rem;
   display: flex;
-  flex-flow: row wrap;
+  flex-flow: row nowrap;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.nav-logo-and-search {
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+}
+
+.nav-user-control {
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
 }
 
 .image-list{
@@ -75,6 +103,34 @@ img {
 
 .image {
   width: 100%;
+}
+
+/* Mypage */
+.user-info-area {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: center;
+  align-items: center;
+}
+
+.user-profile-img {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  background-size: cover;
+}
+
+.user-info {
+  padding: 30px;
+  text-align: left;
+}
+
+.image-list-type {
+  height: 3rem;
+  padding: 1rem;
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
 }
 
 /* Search */

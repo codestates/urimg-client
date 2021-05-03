@@ -1,14 +1,13 @@
   
-import {LOG_IN,GET_USER_INFO} from "../actions/index";
+import { SET_LOGIN_STATUS, GET_USER_INFO } from "../actions/index";
 import { initialState } from "./initialState";
 
 const userReducer = (state = initialState, action) => {
 
   switch (action.type) {
-    case LOG_IN:
+    case SET_LOGIN_STATUS:
       return Object.assign({}, state, {
         loginStatus: {
-            ...state.loginStatus,
             isLogin:action.payload.isLogin,
             accessToken:action.payload.accessToken
         }
