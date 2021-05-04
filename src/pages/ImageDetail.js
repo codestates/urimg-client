@@ -12,7 +12,7 @@ const ImageDetail = ({ image, isLogin, history }) => {
       // }, {
       //   headers : {
       //     'Content-Type': 'application/json',
-      //     Authorization: `Bearer ${loginStatus.accessToken}`,
+      //     Authorization: `Bearer ${localStorage.accessToken}`,
       //     withCredentials: true
       //   }
       // })
