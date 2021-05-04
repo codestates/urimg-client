@@ -4,6 +4,7 @@ export const SET_IMAGES = "SET_IMAGES";
 export const SET_SEARCH_IMAGES = "SET_SEARCH_IMAGES";
 export const SET_SEARCH_KEYWORD = "SET_SEARCH_KEYWORD";
 export const SET_IS_IMAGE_UPLOAD_MODAL_OPEN = "SET_IS_IMAGE_UPLOAD_MODAL_OPEN";
+export const SET_MESSAGE_MODAL = "SET_MESSAGE_MODAL";
 export const SET_IMAGE_URL = "SET_IMAGE_URL";
 export const SET_SINGLE_IMAGE = "SET_SINGLE_IMAGE";
 // actions creator functions
@@ -51,12 +52,23 @@ export const setIsImageUploadModalOpen = (boolean) => {
   }
 }
 
+export const setMessageModal = (boolean, content) => {
+  return {
+    type: SET_MESSAGE_MODAL,
+    payload: {
+      isModalOpen: boolean,
+      content: content
+    }
+  }
+}
+
 export const setImageUrl = (url) => {
   return {
     type: SET_IMAGE_URL,
     payload: url
   }
 }
+
 
 export const setSingleImage = (image) => {
   return {

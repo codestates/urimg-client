@@ -2,6 +2,7 @@ import { SET_IMAGES,
   SET_SEARCH_IMAGES,
   SET_SEARCH_KEYWORD,
   SET_IS_IMAGE_UPLOAD_MODAL_OPEN,
+  SET_MESSAGE_MODAL,
   SET_IMAGE_URL,
   SET_SINGLE_IMAGE } from "../actions/index";
 import { initialState } from "./initialState";
@@ -27,6 +28,13 @@ const imageReducer = (state = initialState, action) => {
       return Object.assign({}, state, {
         isImageUploadModalOpen: action.payload
       })
+    
+    case SET_MESSAGE_MODAL:
+      return Object.assign({}, state, {
+        messageModal: {
+          ...action.payload
+        }
+    })
 
     case SET_IMAGE_URL:
       return Object.assign({}, state, {
