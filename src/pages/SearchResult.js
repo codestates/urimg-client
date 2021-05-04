@@ -1,8 +1,12 @@
 import React from "react";
-import { withRouter } from "react-router-dom";
+import { Redirect, withRouter } from "react-router-dom";
 import ImageList from '../components/ImageList';
 
 const SearchResult = ({ searchImages, searchKeyword, redirectToImage }) => {
+  if (searchImages === null) {
+    return <Redirect to='/main' />
+  }
+
   return (
     <div className="search-result">
       <div className="search-headder">{searchKeyword}</div>

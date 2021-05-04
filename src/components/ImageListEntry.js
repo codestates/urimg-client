@@ -1,5 +1,4 @@
 import React from 'react';
-import ImageDetail from '../pages/ImageDetail';
 
 const ImageListEntry = ({ image, redirectToImage }) => {
   return (

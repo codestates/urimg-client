@@ -17,6 +17,11 @@ export const initialState =
   ],
   "searchKeyword": '',
   "isImageUploadModalOpen": false,
+  "isModalOpen": false,
+  "messageModal": {
+    "isModalOpen": false,
+    "content": ''
+  },
   "imageUrl": '',
   "singleImage": {
     

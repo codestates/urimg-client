@@ -7,6 +7,12 @@ const Search = ({ handleButtonClick }) => {
     setQueryString(e.target.value);
   }
 
+  const checkKeycode = (e) => {
+    if (e.keyCode === 13) {
+      getSearchResult();
+    }
+  }
+
   const getSearchResult = () => {
     if (queryString === '') {
       // 검색어 없이 검색 버튼 누르는 경우
@@ -18,12 +24,19 @@ const Search = ({ handleButtonClick }) => {
   }
 
   return (
-    <div className="search-bar">
-      <input className="search-input" type="text" value={queryString} onChange={changeQueryString}/>
-      <button className="search-btn" onClick={getSearchResult}>
-        검색
+    <React.Fragment>
+      <input
+        className="search-input"
+        type="text"
+        value={queryString}
+        onChange={changeQueryString}
+        onKeyDown={checkKeycode}
+        placeholder="Search image"
+      />
+      <button className="search-btn" onClick={getSearchResult} >
+        <img src="https://img.icons8.com/ios-filled/50/000000/search--v1.png" alt="search-icon" />
       </button>
-    </div>
+    </React.Fragment>
   );
 }
 

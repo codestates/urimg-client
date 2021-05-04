@@ -9,6 +9,9 @@ const Modal = ({ isOpen, close, handleFileChange, uploadImage, imageUrl }) => {
         <div className="modal">
           <div className="modal-overlay" onClick={close} />
           <div className="modal-box">
+          <div>
+          <img className="close-icon" src="close-icon.png" onClick={close} alt=""/>
+          </div>
             <div className="modal-content">
               <ImageUpload
                 handleFileChange={handleFileChange}

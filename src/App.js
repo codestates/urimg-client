@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { Switch, Route, Redirect, withRouter } from "react-router-dom";
 import { useDispatch, useSelector } from 'react-redux';
+import axios from "axios";
 
 import Main from "./pages/Main";
 import Login from "./pages/Login";
@@ -13,12 +14,16 @@ import ImageDetail from "./pages/ImageDetail";
 
 import Nav from "./components/Nav";
 import ImageUploadModal from "./components/ImageUploadModal";
+import Modal from "./components/Modal";
 
 import { imagesData } from "./fakeData/images";
-import { setImages,
+import { 
+  setLoginStatus,
+  setImages,
   setSearchImages,
   setSearchKeyword, 
   setIsImageUploadModalOpen,
+  setMessageModal,
   setImageUrl,
   setSingleImage } from './actions/index';
 
@@ -30,48 +35,64 @@ const App = ({ history }) => {
 
   const imageInfo = useSelector(state => state.imageReducer);
   const { images, searchImages, searchKeyword,
-    isImageUploadModalOpen, imageUrl, singleImage } = imageInfo;
+    isImageUploadModalOpen, messageModal,
+    imageUrl, singleImage } = imageInfo;
 
   useEffect(() => getImages(), [])
 
-  const getImages = () => {
+  async function getImages() {
+    // await axios.get(`${process.env.REACT_APP_API_URL}/img/list`)
+    // .then((res) => {
+    //   dispatch(setImages(res.data.data.images));
+    // })
+    // .catch((err) => {
+    //   if (err) throw err;
+    // })
+
     dispatch(setImages(imagesData));
   }
 
-  const getSearchImages = (query) => {
-    /*
-    search 컴포넌트에서 받은 query로 서버에 서치 요청 => 리스트 받은 후 setSearchImages 예정
-    아래는 기능 체크를 위해 하드코딩된 데이터에서 검색한 후
-    이미지 리스트를 변경하는 코드를 임시로 작성한 것입니다
-    */
+  async function getSearchImages(query) {
+    // await axios.post(`${process.env.REACT_APP_API_URL}/img/search`, {
+    //   query: query
+    // }, {
+    //   headers : {
+    //     'Content-Type': 'application/json'
+    //   }
+    // })
+    // .then((res) => {
+    //   dispatch(setSearchKeyword(query));
+    //   dispatch(setSearchImages(res.data.data.images));
+    // })
+    // .catch((err) => {
+    //   if (err) throw err;
+    // });
+
     dispatch(setSearchKeyword(query));
     dispatch(
       setSearchImages(
         images.filter(image => image.alt_description.includes(query))
       )
     );
-
-    history.push("/");
+    history.push("/search");
   }
 
   const clearSearchImages = () => {
-    dispatch(setSearchImages([]));
+    dispatch(setSearchImages(null));
     history.push("/");
   }
 
   const openImageUploadModal = () => {
-    // history.push("/");
     dispatch(
       setIsImageUploadModalOpen(true)
     )
   }
 
   const closeImageUploadModal = () => {
-    // history.goBack();
     dispatch(
       setIsImageUploadModalOpen(false)
     )
-    setImageUrl('');
+    dispatch(setImageUrl(''));
   }
 
   const handleFileChange = (event) => {
@@ -83,8 +104,31 @@ const App = ({ history }) => {
     reader.readAsDataURL(file);
   }
 
-  const uploadImage = () => {
-    // 서버에 받은 이미지를 업로드하는 함수
+  async function uploadImage(query) {
+    // await axios.post(`${process.env.REACT_APP_API_URL}/img/upload`, {
+    //   filepath: imageUrl,
+    //   description: query
+    // }, {
+    //   headers : {
+    //     Authorization: `Bearer ${localStorage.accessToken}`
+    //   }
+    // })
+    // .then(() => {
+    //   dispatch(isModalOpen(true));
+
+    //   dispatch(setIsImageUploadModalOpen(false));
+    // })
+    // .catch((err) => {
+    //   if (err.response.data === "Refresh token expired") {
+    //     dispatch(setLoginStatus(false));
+    //     localStorage.removeItem('accessToken');
+    //     history.push("/login");
+    //   }
+    //   if (err) throw err;
+    // })
+
+    dispatch(setMessageModal(true, '업로드가 완료되었습니다.'));
+    dispatch(setIsImageUploadModalOpen(false));
   }
 
   const redirectToImage = (image) => {
@@ -94,6 +138,10 @@ const App = ({ history }) => {
 
   return (
     <div className="App">
+      <Modal
+        isOpen={messageModal.isModalOpen}
+        content={messageModal.content}
+      />
       <ImageUploadModal
         isOpen={isImageUploadModalOpen}
         close={closeImageUploadModal}
@@ -106,10 +154,11 @@ const App = ({ history }) => {
         handleLogoClick={clearSearchImages}
         openModal={openImageUploadModal}
         isLogin={isLogin}
+        profileImage={userinfo.profile_image}
       />
       <Switch>
         <Route
-        exact path='/main'
+        path='/main'
         render={() => (
           <Main
             images={images}
@@ -154,11 +203,8 @@ const App = ({ history }) => {
         render={() => <ImageDetail image={singleImage} isLogin={isLogin}/>}
         />
         <Route path='/' render={() => {
-          if (searchImages.length === 0) {
             return <Redirect to='/main' />;
-          }
-          return <Redirect to='/search' />;
-        }}
+          }}
         />
       </Switch>
     </div>
