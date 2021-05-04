@@ -1,6 +1,9 @@
 import React from "react";
 import { withRouter } from "react-router-dom";
 import axios from "axios";
+import Comment from '../components/Comment';
+import CreateComment from '../components/CreateComment';
+import comments from '../fakeData/comments';
 
 const ImageDetail = ({ image, loginStatus, history }) => {
   const likeImage = () => {
@@ -22,6 +25,26 @@ const ImageDetail = ({ image, loginStatus, history }) => {
       //   }
       // })
     }
+    const handleComment = (comment)=>{
+      axios.post(`${process.env.REACT_APP_API_URL}/img/comment`, {
+        image_id: image.id,
+        comment
+      }, {
+        headers : {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${loginStatus.accessToken}`,
+          withCredentials: true
+        }
+      })
+      .then(() => {
+        console.log('성공!')
+      })
+      .catch((err) => {
+        if(err.response.status === 401){              
+          // 리프레시 토큰으로 액세스 토큰 재발급
+        }
+      })
+    }
 
     return (
       <div className="image-detail">
@@ -34,7 +57,17 @@ const ImageDetail = ({ image, loginStatus, history }) => {
             null}
         </div>
         <img className="image" src={image.url} alt={image.alt_description} />
-        <span>댓글 컴포넌트 자리</span>
+        <CreateComment handleComment={handleComment}/>
+        {
+          comments.map((comment,i)=>{
+            return <Comment 
+                key={i} 
+                userName={comment.user_name} 
+                date={comment.created_at} 
+                comment={comment.comment}
+              />
+          })
+        }
       </div>
     );
   }

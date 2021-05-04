@@ -1,8 +1,6 @@
-import axios from "axios";
-import React from "react";
 import React,{useState} from "react";
 
-const CreateComment = ()=>{              
+const CreateComment = ({handleComment})=>{              
     const[comment,setCommnet] = useState('')
 
     return(
@@ -14,7 +12,7 @@ const CreateComment = ()=>{
           />
           <button 
             type='submit'
-            // onClick={()=>{handleComment(comment)}}            //상세페이지에서 포스트요청 함수 내려받아야함
+            onClick={()=>{handleComment(comment)}}            //상세페이지에서 포스트요청 함수 내려받아야함
           >
             <span>등록</span>
           </button>
