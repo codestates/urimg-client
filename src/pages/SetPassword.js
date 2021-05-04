@@ -1,9 +1,9 @@
-import React,{useState, useEffect} from "react";
+import React,{useState} from "react";
 import { Link, withRouter,useHistory } from "react-router-dom";
 import axios from "axios";
 import InputContainer from '../components/InputContainer';
 import { useDispatch, useSelector } from 'react-redux';
-import { login } from '../actions/index';
+import { setLoginStatus } from '../actions/index';
 import {refreshAccessToken} from '../functions/Request';        // 엑세스 토큰 재요청 함수
 
 axios.defaults.withCredentials = true;
@@ -17,7 +17,7 @@ const SetPassword = ()=>{
   const[isPasswordSame,setIsPasswordSame] = useState(true)  // 비밀번호 재확인
   const[errorMessage,setErrorMessage] = useState('')
   const state = useSelector(state=>state.userReducer);
-  const { loginStatus, userInfo } = state
+  const { loginStatus } = state
   const dispatch = useDispatch();
   const {accessToken} = loginStatus
 
@@ -25,15 +25,17 @@ const SetPassword = ()=>{
     axios.patch(process.env.REACT_APP_API_URL+'/user/userinfo',{ 
       password
     },{
-      'Content-Type': 'application/json',
-      Authorization: `Bearer ${accessToken}`   
+      headers:{
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${accessToken}`
+      }
     })
     .then(resp=>{
       history.push('/setting/profile')
     })
     .catch((err)=>{
       if(err.response.status===401){              
-        refreshAccessToken( dispatch(login(accessToken)) )   //엑세스 토큰 재요청 
+        refreshAccessToken( dispatch(setLoginStatus(accessToken)) )   //엑세스 토큰 재요청 
       }
     })
   }
@@ -61,10 +63,10 @@ const SetPassword = ()=>{
   }
 
   return(
-      <div>
-          <div>
+      <div className='setting-user-info'>
+          <div className='profile-image-container'>
           </div>
-          <div>
+          <div className='setting-center'>
             <form onSubmit={(e) => e.preventDefault()}>
               <div>
                 <div>새 비밀번호</div>
@@ -96,7 +98,7 @@ const SetPassword = ()=>{
               )
             }
           </div>
-          <div>
+          <div className='setting-link'>
             <div>
               <Link to='/setting/profile'>프로필 수정</Link>
             </div>

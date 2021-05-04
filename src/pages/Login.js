@@ -3,18 +3,18 @@ import { Link, withRouter,useHistory } from "react-router-dom";
 import axios from "axios";
 import InputContainer from '../components/InputContainer';
 import { useDispatch, useSelector } from 'react-redux';
-import { login, getUserInfo } from '../actions/index';
+import { setLoginStatus, getUserInfo } from '../actions/index';
 
 axios.defaults.withCredentials = true;
 
-const Login = (props)=>{
+const Login = ()=>{
   const history = useHistory(); //  히스토리
   const[email,setEmail] = useState('email')
   const[password,setPassword] = useState('password')
   const[errorMessage,setErrorMessage] = useState('')
 
   const state = useSelector(state=>state.userReducer);
-  const { loinStatus, userInfo } = state
+  const { loginStatus, userInfo } = state
   const dispatch = useDispatch();
 
   const handleLogin = ()=>{
@@ -25,7 +25,7 @@ const Login = (props)=>{
       'Content-Type': 'application/json'             
     })
     .then(resp=>{
-      dispatch(login(resp.data.data.access_token))
+      dispatch(setLoginStatus(resp.data.data.access_token,true))
       return axios.get(process.env.REACT_APP_API_URL+'/user/userinfo',{
         headers:{
           'Content-Type': 'application/json',

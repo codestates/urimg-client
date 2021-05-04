@@ -243,6 +243,38 @@ li {
   .lds-ring div:nth-child(3) {
     animation-delay: -0.15s;
   }
+
+/* SetUserInfo */
+.setting-user-info {
+  display: flex;
+  height: 100vh;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: flex-end;
+}
+.profile-image-container {
+  border: 1px solid black;
+  flex-grow: 1;
+}
+.setting-center {
+  border: 1px solid black;
+  flex-basis: 30%;
+}
+.setting-link {
+  border: 1px solid black;
+  flex-basis: 40%;
+}
+
+/* LogIn */
+.log-in-sign-up-area {
+  display: flex;
+  justify-content: center;
+}
+.log-in-sign-up {
+  align-self: center;
+  border: 1px solid black;
+}
+
   @keyframes lds-ring {
     0% {
       transform: rotate(0deg);
