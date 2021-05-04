@@ -7,13 +7,10 @@ export const SET_IS_IMAGE_UPLOAD_MODAL_OPEN = "SET_IS_IMAGE_UPLOAD_MODAL_OPEN";
 export const SET_IMAGE_URL = "SET_IMAGE_URL";
 export const SET_SINGLE_IMAGE = "SET_SINGLE_IMAGE";
 // actions creator functions
-export const setLoginStatus = (accessToken, isLogin) => {
+export const setLoginStatus = (isLogin) => {
   return {
     type: SET_LOGIN_STATUS,
-    payload: {
-      isLogin: isLogin,
-      accessToken
-    }
+    payload: isLogin
   }
 }
 

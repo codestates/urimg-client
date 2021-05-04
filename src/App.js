@@ -22,12 +22,11 @@ import { setImages,
   setImageUrl,
   setSingleImage } from './actions/index';
 
-
 const App = ({ history }) => {
   const dispatch = useDispatch();
 
   const loginInfo = useSelector(state => state.userReducer);
-  const { loginStatus, userinfo } = loginInfo;
+  const { isLogin, userinfo } = loginInfo;
 
   const imageInfo = useSelector(state => state.imageReducer);
   const { images, searchImages, searchKeyword,
@@ -106,7 +105,7 @@ const App = ({ history }) => {
         handleButtonClick={getSearchImages}
         handleLogoClick={clearSearchImages}
         openModal={openImageUploadModal}
-        loginStatus={loginStatus}
+        isLogin={isLogin}
       />
       <Switch>
         <Route
@@ -136,7 +135,7 @@ const App = ({ history }) => {
         />
         <Route
         exact path='/mypage'
-        render={() => <Mypage userInfo={userinfo} loginStatus={loginStatus} />}
+        render={() => <Mypage userInfo={userinfo} isLogin={isLogin}/>}
         />
         <Route
         exact path='/setting/profile'
@@ -152,7 +151,7 @@ const App = ({ history }) => {
         />
         <Route
         exact path='/image'
-        render={() => <ImageDetail image={singleImage} loginStatus={loginStatus}/>}
+        render={() => <ImageDetail image={singleImage} isLogin={isLogin}/>}
         />
         <Route path='/' render={() => {
           if (searchImages.length === 0) {

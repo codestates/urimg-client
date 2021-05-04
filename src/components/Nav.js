@@ -3,29 +3,28 @@ import Search from './Search';
 import { withRouter } from "react-router-dom";
 import { useDispatch } from 'react-redux';
 import { setLoginStatus } from '../actions/index';
-import { refreshAccessToken } from '../functions/Request'; 
 import axios from "axios";
 
-const Nav = ({ handleButtonClick, handleLogoClick, openModal, loginStatus, history }) => {
+const Nav = ({ handleButtonClick, handleLogoClick, openModal, isLogin, history }) => {
   const dispatch = useDispatch();
 
-
-  const logout = () => {
-    axios.post(`${process.env.REACT_APP_API_URL}/user/logout`, null, {
+  async function logout() {
+    await axios.post(`${process.env.REACT_APP_API_URL}/user/logout`, null, {
       headers : {
-        Authorization: `Bearer ${loginStatus.accessToken}`,
-        withCredentials: true
+        Authorization: `Bearer ${localStorage.accessToken}`
       }
     })
     .then(() => {
-      console.log(loginStatus.accessToken);
-      dispatch(setLoginStatus("", false));
-      history.push("/");
+      dispatch(setLoginStatus(false));
+      localStorage.removeItem('accessToken');
     })
-    .catch((err)=>{
-      if(err.response.status === 401){              
-        dispatch(setLoginStatus(refreshAccessToken(), false));
+    .catch((err) => {
+      if (err.response.data === "Refresh token expired") {
+        dispatch(setLoginStatus(false));
+        localStorage.removeItem('accessToken');
+        history.push("/login");
       }
+      if (err) throw err;
     })
   }
   
@@ -41,7 +40,7 @@ const Nav = ({ handleButtonClick, handleLogoClick, openModal, loginStatus, histo
       </div>
       <div className="nav-user-control">
         {
-          loginStatus.isLogin ? (
+          isLogin ? (
             <React.Fragment>
             <button className="upload-btn" onClick={openModal}>
               사진 업로드

@@ -8,10 +8,7 @@ export const initialState =
         "created_at": null,
         "updated_at": null
     },
-  "loginStatus": {
-      "isLogin": false,
-      "accessToken": ''
-    },
+  "isLogin": false,
   "images": [
 
   ],
