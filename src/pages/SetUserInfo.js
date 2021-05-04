@@ -80,6 +80,7 @@ const SetUserInfo = ({handleFileChange, imageUrl})=>{
 
   return(
       <div className='setting-user-info' >
+        <div className='setting-user-info-area'>
           <div className='profile-image-container'>
             <ProfileImgContainer
               handleFileChange={handleFileChange}
@@ -111,6 +112,7 @@ const SetUserInfo = ({handleFileChange, imageUrl})=>{
               <Link to='/setting/password'>비밀번호 변경</Link> 
             </div>
           </div>
+        </div>
       </div>
   )
 } 

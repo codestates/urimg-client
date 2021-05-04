@@ -250,10 +250,18 @@ li {
 /* SetUserInfo */
 .setting-user-info {
   display: flex;
+  justify-content: center;
+  width: 100%;
   height: 100vh;
+  /* background: var(--log-in-background-color); */
+}
+.setting-user-info-area {
+  display: flex;
   flex-direction: row;
-  flex-wrap: nowrap;
-  justify-content: flex-end;
+  width: 40rem;
+  height: 100vh;
+  margin: 1px;
+  padding: 1px;
 }
 .profile-image-container {
   border: 1px solid black;
