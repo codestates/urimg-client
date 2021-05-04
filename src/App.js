@@ -18,6 +18,7 @@ import Modal from "./components/Modal";
 
 import { imagesData } from "./fakeData/images";
 import { 
+  setImages,
   setLoginStatus,
   setImages,
   setSearchImages,
