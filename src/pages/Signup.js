@@ -46,7 +46,7 @@ const Signup = ()=>{
         const valid = emailRegex.test(email)
         setIsValidEmail(valid)
         if(!valid){
-          setErrorMessage('이메일 주소를 다시 확인해주세요.')
+          setErrorMessage('이메일 주소를 정확히 입력해 주세요.')
         }
         else{
           setErrorMessage('')
@@ -76,55 +76,60 @@ const Signup = ()=>{
 
 
     return(
-      <div className='log-in-sign-up-area'>
-        <div className='log-in-sign-up'>
+      <div className='login-signup-area'>
+        <div className='signup'>
           <h1>Sign Up</h1>
-          <form onSubmit={(e) => e.preventDefault()}>
-            <InputContainer 
-              type={'text'} 
-              placeholder={'email'} 
-              handler={setEmail} 
-              validChecker={emailChecker} 
-              isValid={isValidEmail}
-            />
-            <InputContainer 
-              type={'text'} 
-              placeholder={'username'} 
-              handler={setUserName}
-            />
-            <InputContainer 
-              type={'password'} 
-              placeholder={'password'} 
-              handler={setPassword} 
-              validChecker={passwordChecker} 
-              isValid={isValidPassword}
-            />
-            <InputContainer 
-              type={'password'} 
-              placeholder={'password agian'} 
-              handler={setPasswordConfirm} 
-              validChecker={samePasswordChecker} 
-              isValid={isPasswordSame}
-            />
-
+          {/* <form onSubmit={(e) => e.preventDefault()}> */}
+          <InputContainer 
+            type={'text'} 
+            placeholder={'email'} 
+            handler={setEmail} 
+            validChecker={emailChecker} 
+            isValid={isValidEmail}
+          />
+          <InputContainer 
+            type={'text'} 
+            placeholder={'username'} 
+            handler={setUserName}
+          />
+          <InputContainer 
+            type={'password'} 
+            placeholder={'password'} 
+            handler={setPassword} 
+            validChecker={passwordChecker} 
+            isValid={isValidPassword}
+          />
+          <InputContainer 
+            type={'password'} 
+            placeholder={'password agian'} 
+            handler={setPasswordConfirm} 
+            validChecker={samePasswordChecker} 
+            isValid={isPasswordSame}
+          />
+          <div>
+            <Link to='Login'>이미 아이디가 있으신가요?</Link>
+          </div>
+          {
+            errorMessage.length>0 ?(
+            <span className='error-msg'>
+              {errorMessage}
+            </span>
+            ):(
+            <span className='error-msg-for-space'>
+              로그인을 해주세요!  {/*공간 차지하기위한 텍스트*/}
+            </span>  
+            )
+          }
+          <div className='login-signup-btn-area'>
             <button
-              className="btn btn-signup"
+              className="login-signup-page-btn"
               type='submit'
               onClick={handleSignup}
             >
               회원가입
             </button>
-            <div>
-              <Link to='Login'>이미 아이디가 있으신가요?</Link>
-            </div>
-            {
-              errorMessage.length>0 ?(
-                <span>{errorMessage}</span>
-              ):(
-                <span></span>
-              )
-            }
-          </form>
+          </div>
+          {/* </form> */}
         </div>
       </div>
     )

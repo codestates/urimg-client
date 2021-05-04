@@ -5,7 +5,6 @@ import InputContainer from '../components/InputContainer';
 import ProfileImgContainer from '../components/ProfileImgContainer';
 import { useDispatch, useSelector } from 'react-redux';
 import { setLoginStatus } from '../actions/index';
-import {refreshAccessToken} from '../functions/Request';       //엑세스 토큰 재요청 함수
 axios.defaults.withCredentials = true;
 
 const SetUserInfo = ({handleFileChange, imageUrl})=>{  
@@ -37,9 +36,7 @@ const SetUserInfo = ({handleFileChange, imageUrl})=>{
       history.push('/setting/profile')
     })
     .catch((err)=>{
-      if(err.response.status===401){              
-        refreshAccessToken( dispatch(setLoginStatus(accessToken)) )     //엑세스 토큰 재요청
-      }
+      console.log(err)
     })
   }
 
@@ -59,7 +56,7 @@ const SetUserInfo = ({handleFileChange, imageUrl})=>{
     })
     .catch((err)=>{
       if(err.response.status===401){              
-        refreshAccessToken( dispatch(setLoginStatus(accessToken)) )     //엑세스 토큰 재요청
+        console.log(err)
       }
     })
   }
@@ -76,7 +73,7 @@ const SetUserInfo = ({handleFileChange, imageUrl})=>{
       })
       .catch((err)=>{
         if(err.response.status===401){              
-          refreshAccessToken( dispatch(setLoginStatus(accessToken)) )     //엑세스 토큰 재요청
+          console.log(err)
         }
       })
   }

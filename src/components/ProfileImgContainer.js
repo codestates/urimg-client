@@ -9,7 +9,7 @@ const ProfileImgContainer = ({profileImage,handleProfileImgEdit,handleFileChange
             >
             </div>
             <div>    
-                <label for="image_uploads">Choose image</label>   {/* lable의 for 속성으로 input 태그와 연결한 후 input style 속성으로 숨김 */}
+                <label htmlFor="image_uploads">Choose image</label>   {/* lable의 for 속성으로 input 태그와 연결한 후 input style 속성으로 숨김 */}
                 <input                                           
                 type="file" 
                 id="image_uploads" 

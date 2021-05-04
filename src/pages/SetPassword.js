@@ -2,9 +2,7 @@ import React,{useState} from "react";
 import { Link, withRouter,useHistory } from "react-router-dom";
 import axios from "axios";
 import InputContainer from '../components/InputContainer';
-import { useDispatch, useSelector } from 'react-redux';
-import { setLoginStatus } from '../actions/index';
-import {refreshAccessToken} from '../functions/Request';        // 엑세스 토큰 재요청 함수
+import { useSelector } from 'react-redux';
 
 axios.defaults.withCredentials = true;
 
@@ -18,7 +16,6 @@ const SetPassword = ()=>{
   const[errorMessage,setErrorMessage] = useState('')
   const state = useSelector(state=>state.userReducer);
   const { loginStatus } = state
-  const dispatch = useDispatch();
   const {accessToken} = loginStatus
 
   const handlePasswordEdit = ()=>{
@@ -35,7 +32,7 @@ const SetPassword = ()=>{
     })
     .catch((err)=>{
       if(err.response.status===401){              
-        refreshAccessToken( dispatch(setLoginStatus(accessToken)) )   //엑세스 토큰 재요청 
+        console.log(err)
       }
     })
   }
