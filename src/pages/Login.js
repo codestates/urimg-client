@@ -5,8 +5,6 @@ import InputContainer from '../components/InputContainer';
 import { useDispatch } from 'react-redux';
 import { setLoginStatus, getUserInfo } from '../actions/index';
 
-axios.defaults.withCredentials = true;
-
 const Login = ()=>{
   const history = useHistory(); //  히스토리
   const[email,setEmail] = useState('email')
@@ -32,8 +30,17 @@ const Login = ()=>{
         }
       })
     })
-    .then(resp=>{
-      dispatch(getUserInfo(resp.data))
+    .then(resp => {
+      let profileImage = resp.data.profile_image;
+      if (!profileImage) {
+        profileImage = 'default-profile-picture_150.jpg';
+      }
+      dispatch(
+        getUserInfo({ 
+          ...resp.data,
+          profile_image: profileImage
+        })
+      )
       history.push('/')
     })
     .catch((err)=>{    // 중복일때 아직 안만듬

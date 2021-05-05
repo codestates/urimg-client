@@ -17,7 +17,6 @@ import ImageUploadModal from "./components/ImageUploadModal";
 import Modal from "./components/Modal";
 import LoadingIndicator from "./components/LoadingIndicator";
 
-import { imagesData } from "./fakeData/images";
 import { 
   setLoginStatus,
   setImages,
@@ -68,6 +67,11 @@ const App = ({ history }) => {
       dispatch(setSearchImages(res.data.data.images));
     })
     .catch((err) => {
+      if (err.response.status === 404) {
+        dispatch(setSearchKeyword(query));
+        dispatch(setSearchImages([]));
+        history.push("/search");
+      }
       if (err) throw err;
     });
 
@@ -211,8 +215,7 @@ const App = ({ history }) => {
         <Route
         exact path='/setting/profile'
         render={() => (
-          <SetUserInfo 
-            profileImage={userinfo.profile_image}
+          <SetUserInfo
             handleFileChange={handleFileChange}
             imageUrl={imageUrl}
             userinfo={userinfo}

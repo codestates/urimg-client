@@ -1,11 +1,9 @@
 * {
   box-sizing: border-box;
 }
-:root {
-  --log-in-background-color:rgba(0, 0, 0, 0.05);
-}
 
 :root {
+  --log-in-background-color:rgba(0, 0, 0, 0.05);
   --main-base-color: #F2f2f2;
   --main-point-color: #808080;
   --main-hover-color: #000000;
@@ -195,6 +193,13 @@ li:hover {
 }
 
 /* Search */
+.search-result-box {
+  margin-top: 2rem;
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: center;
+}
+
 .search-headder {
   padding: 0 0.8rem 0 0.8rem;
   font-size: 2rem;
@@ -205,6 +210,45 @@ li:hover {
 .search-result {
   padding: 0 0.8rem 0 0.8rem;
   color: var(--main-point-color);
+}
+
+.no-serch-result {
+  margin: auto;
+  min-height: 10rem;
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: center;
+}
+
+.no-search-result-text {
+  font-size: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.square-face-box {
+  position: absolute;
+  top: 35%;
+  width: 30rem;
+  height: 20rem;
+  border: 5px solid var(--main-base-color);
+  border-radius: 1rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.square-face-box-small {
+  width: 28rem;
+  height: 16rem;
+  margin-bottom: 1rem;
+  border: 5px solid var(--main-base-color);
+  border-radius: 1rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.square-face {
+  width: 20%;
 }
 
 
@@ -534,96 +578,120 @@ li:hover {
   }
 
 /* SetUserInfo */
+
 .setting-user-info {
+  margin-top: 10rem;
+  min-height: 40vh;
   display: flex;
+  flex-flow: row nowrap;
   justify-content: center;
-  width: 100%;
-  height: 100vh;
-  /* background: var(--log-in-background-color); */
 }
-.setting-user-info-area {
-  display: flex;
-  flex-direction: row;
-  width: 40rem;
-  height: 40vh;
-  margin: 1px;
-  padding: 1px;
-}
-.profile-image-container {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  flex-grow: 1;
-}
+
 .profile-container {
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  flex-grow: 1;
+  flex-flow: column nowrap;
 }
-.profile-container label:hover{
-  background-color: var(--main-btn-color);
+
+.user-info-modify-area {
+  min-width: 35vw;
 }
-.setting-center {
+
+.password-modify-area {
+  min-width: 35vw;
   display: flex;
-  flex-direction: row;
-  align-items: center;
-  flex-basis: 46%;
-  margin-top: 65px;
-}
-.setting-input-box {
-  width: 80%;
-  height: 50px;
-  font-size: 16px;
-  border-left-width:0;
-  border-right-width:0;
-  border-top-width:0;
-  margin:8px;
-}
-.setting-center-area {
-  display: flex;
-  flex-direction: column;
-  margin: 6px;
-  padding: 6px;
-  flex-grow: 1;
-  align-self: flex-start;
+  flex-flow: column nowrap;
+  justify-content: center;
 }
 
 .setting-link {
+  min-height: 30vh;
   display: flex;
-  flex-direction: column;
-  flex-basis: 25%;
+  flex-flow: column nowrap;
   justify-content: center;
-}
-.setting-link-area{
-  border: 2px solid gray;
-  border-radius: 6px;
-}
-.setting-link-box{
-  position: relative;
-  display: block;
+  border: 1px solid var(--main-point-color);
+  border-radius: 1.5rem;
   padding: 8px 16px;
-  border-bottom: 2px solid gray;
-  
-  font-size: 1rem;
+  margin-left: 2rem;
 }
-.last{
-  border-bottom-width: 0px;
+
+.username-input-area {
+  display: flex;
+  flex-flow: column nowrap;
 }
-.btn-withdrawal{
-  background:none;
-  font-size: 1rem;
-  border:none;
-  padding-left: 0px;
+
+.modify-profile-image {
+  position: relative;
+  margin: auto;
 }
+
+.profile-upload-overlay {
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background-color: rgba(0, 0, 0, 0.3);
+  color: var(--main-base-color);
+  opacity: 0;
+}
+.profile-upload-overlay:hover {
+  opacity: 1;
+}
+.profile-upload-overlay:first-child {
+  font-weight: 700;
+}
+
+.setting-link-box {
+  cursor: pointer;
+  color: var(--main-point-color);
+  text-align: center;
+  margin: 0.5rem;
+}
+
 .setting-link-box a{
-  text-decoration-line: none;
-  color:black;
+  text-decoration : none;
+  color: black;
+  margin: 0;
 }
+
+.btn-withdrawal{
+  margin: 0.5rem;
+  background: none;
+  font-size: 1rem;
+  border: none;
+  color: var(--main-point-color);
+}
+
 .btn-edit {
-  align-self: flex-end;
-  width: 40%;
+  float: right;
+  width: 30%;
   margin: 5px;
+} 
+
+.profile {
+  position: static;
+}
+
+.setting-input-box {
+  border-left-width:0;
+  border-right-width:0;
+  border-top-width:0;
+  border-bottom-width: 1px;
+  outline: none;
+  width: 100%;
+  padding: 0.4rem;
+}
+
+.bold-letter {
+  font-weight: 700;
+  color: black;
+}
+
+.subject {
+  margin: 1rem 0.5rem 0.4rem 0.5rem;
 }
 
 /* LogIn */
