@@ -1,13 +1,7 @@
 import React from "react";
 import Comment from '../components/Comment';
 
-import mockComments from '../fakeData/comments';
-
 const CommentList = ({ comments })=>{
-  if (comments.length === 0) {
-    comments = mockComments;
-  }
-  
   return(
     <div className="comment-list">
     {

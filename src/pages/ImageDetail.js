@@ -62,8 +62,11 @@ const ImageDetail = ({ image, isLogin, likeBtnColor, changeBtnColor, setDefaultC
         if (err) throw err;
       })
     } else if (likeBtnColor === '#fd4f58') {
-      await axios.delete(`${process.env.REACT_APP_API_URL}/img/like`, {
-        image_id: image.id
+      console.log('실행됩니까?')
+      await axios.delete(`${process.env.REACT_APP_API_URL}/img/like/`, {
+        data: {
+          image_id: image.id
+        }
       }, {
         headers : {
           'Content-Type': 'application/json',

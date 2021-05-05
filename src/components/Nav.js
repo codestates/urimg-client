@@ -21,6 +21,7 @@ const Nav = ({ handleButtonClick, handleLogoClick, openModal, isLogin, profileIm
     .then(() => {
       dispatch(setLoginStatus(false));
       localStorage.removeItem('accessToken');
+      history.push("/");
     })
     .catch((err) => {
       if (err.response.data === "Refresh token expired") {
@@ -60,7 +61,7 @@ const Nav = ({ handleButtonClick, handleLogoClick, openModal, isLogin, profileIm
             </div>
             </React.Fragment>
           ) : (
-            <button className="login btn" onClick={() => {history.push("/login")}}>
+            <button className="login-btn btn" onClick={() => {history.push("/login")}}>
               로그인
             </button>
           )
