@@ -1,21 +1,17 @@
 import React,{useState} from "react";
 import { Link, withRouter,useHistory } from "react-router-dom";
 import axios from "axios";
-import InputContainer from '../components/InputContainer';
 import ProfileImgContainer from '../components/ProfileImgContainer';
 import { useDispatch, useSelector } from 'react-redux';
-import { setLoginStatus } from '../actions/index';
-import {refreshAccessToken} from '../functions/Request';       //엑세스 토큰 재요청 함수
+import { setLoginStatus, setMessageModal } from '../actions/index';
 axios.defaults.withCredentials = true;
 
 const SetUserInfo = ({handleFileChange, imageUrl})=>{  
-  
   const history = useHistory(); //  히스토리
   const[userName,setUserName] = useState('')
   const state = useSelector(state=>state.userReducer);
-  const { loginStatus, userinfo } = state
+  const { userinfo } = state
   const dispatch = useDispatch();
-  const {accessToken} = loginStatus
   let profileImage = userinfo.profile_image
 
   if (!profileImage) {
@@ -23,35 +19,33 @@ const SetUserInfo = ({handleFileChange, imageUrl})=>{
   }
 
 
-
   const handleProfileEdit = ()=>{
+
     axios.patch(process.env.REACT_APP_API_URL+'/user/userinfo',{ 
       user_name:userName
     },{
       headers:{
         'Content-Type': 'application/json',
-        Authorization: `Bearer ${accessToken}`
+        Authorization: `Bearer ${localStorage.accessToken}`
       } 
     })
     .then(resp=>{
       history.push('/setting/profile')
     })
     .catch((err)=>{
-      if(err.response.status===401){              
-        refreshAccessToken( dispatch(setLoginStatus(accessToken)) )     //엑세스 토큰 재요청
-      }
+      console.log(err)
     })
   }
 
   const handleProfileImgEdit = ()=>{
 
-    console.log(imageUrl)
+    imageUrl=imageUrl.split(',')[1]
     axios.patch(process.env.REACT_APP_API_URL+'/user/userinfo',{ 
       profile_image:imageUrl
     },{
       headers:{
         'Content-Type': 'application/json',
-        Authorization: `Bearer ${accessToken}`
+        Authorization: `Bearer ${localStorage.accessToken}`
       } 
     })
     .then(resp=>{
@@ -59,7 +53,7 @@ const SetUserInfo = ({handleFileChange, imageUrl})=>{
     })
     .catch((err)=>{
       if(err.response.status===401){              
-        refreshAccessToken( dispatch(setLoginStatus(accessToken)) )     //엑세스 토큰 재요청
+        console.log(err)
       }
     })
   }
@@ -67,22 +61,25 @@ const SetUserInfo = ({handleFileChange, imageUrl})=>{
     axios.delete(process.env.REACT_APP_API_URL+'/user/userinfo',{
         headers:{
           'Content-Type': 'application/json',
-          Authorization: `Bearer ${accessToken}`
+          Authorization: `Bearer ${localStorage.accessToken}`
         } 
       })
       .then(resp=>{
-        dispatch(setLoginStatus("", false));
+        dispatch(setLoginStatus(false));
+        localStorage.removeItem('accessToken');
+        dispatch(setMessageModal(true,'회원 탈퇴가 완료되었습니다.'))
         history.push('/')
       })
       .catch((err)=>{
         if(err.response.status===401){              
-          refreshAccessToken( dispatch(setLoginStatus(accessToken)) )     //엑세스 토큰 재요청
+          console.log(err)
         }
       })
   }
 
   return(
       <div className='setting-user-info' >
+        <div className='setting-user-info-area'>
           <div className='profile-image-container'>
             <ProfileImgContainer
               handleFileChange={handleFileChange}
@@ -91,29 +88,35 @@ const SetUserInfo = ({handleFileChange, imageUrl})=>{
             />
           </div>
           <div className='setting-center'>
-            <form onSubmit={(e) => e.preventDefault()}>
-              <div>이름</div>
-              <InputContainer
-                type={'text'} 
-                placeholder={userName} 
-                handler={setUserName}
-              />
+            <div className='setting-center-area'>
+              <label htmlFor="name">이름</label>
+              <input             
+                className='setting-input-box'
+                type='text'
+                placeholder={userName}
+                onChange={(e)=>setUserName(e.target.value)}
+              />              
               <button className='btn btn-edit' type='submit' onClick={handleProfileEdit}>
                 변경
               </button>
-              <button className='btn btn-edit' type='submit' onClick={handleWithdrawal}>   {/* 탈퇴 위치 애매 */}
-                회원탈퇴
-              </button>
-            </form>
+            </div>
           </div>
           <div className='setting-link'>
-            <div>
-              <Link to='/setting/profile'>프로필 수정</Link>
-            </div>
-            <div>
-              <Link to='/setting/password'>비밀번호 변경</Link> 
+            <div className='setting-link-area'>
+              <div  className='setting-link-box'>
+                <Link to='/setting/profile'><strong>프로필 수정</strong></Link>
+              </div>
+              <div className='setting-link-box'>
+                <Link to='/setting/password'>비밀번호 변경</Link> 
+              </div>
+              <div className='setting-link-box last'>
+                <button className='btn btn-withdrawal' onClick={handleWithdrawal}>
+                  회원탈퇴
+                </button>
+              </div>
             </div>
           </div>
+        </div>
       </div>
   )
 } 

@@ -31,6 +31,7 @@ import {
 const App = ({ history }) => {
   const [ likeBtnColor, setLikeBtnColor ] = useState('#808080');
   const [ isLoading, setIsLoading ] = useState('false');
+
   const dispatch = useDispatch();
 
   const loginInfo = useSelector(state => state.userReducer);
@@ -40,7 +41,6 @@ const App = ({ history }) => {
   const { images, searchImages, searchKeyword,
     isImageUploadModalOpen, messageModal,
     imageUrl, singleImage } = imageInfo;
-
   useEffect(() => getImages(), [])
 
   async function getImages() {
