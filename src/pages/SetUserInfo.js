@@ -110,7 +110,7 @@ const SetUserInfo = ({handleFileChange, imageUrl})=>{
                 <Link to='/setting/password'>비밀번호 변경</Link> 
               </div>
               <div className='setting-link-box last'>
-                <button className='btn btn-withdrawal' onClick={handleWithdrawal}>
+                <button className='btn-withdrawal' onClick={handleWithdrawal}>
                   회원탈퇴
                 </button>
               </div>

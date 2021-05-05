@@ -118,7 +118,7 @@ const SetPassword = ()=>{
                 <Link to='/setting/password'><strong>비밀번호 변경</strong></Link>
               </div>
               <div className='setting-link-box last'>
-                <button className='btn btn-withdrawal' onClick={handleWithdrawal}>
+                <button className='btn-withdrawal' onClick={handleWithdrawal}>
                   회원탈퇴
                 </button>
               </div>
