@@ -15,6 +15,7 @@ import ImageDetail from "./pages/ImageDetail";
 import Nav from "./components/Nav";
 import ImageUploadModal from "./components/ImageUploadModal";
 import Modal from "./components/Modal";
+import LoadingIndicator from "./components/LoadingIndicator";
 
 import { imagesData } from "./fakeData/images";
 import { 
@@ -29,6 +30,7 @@ import {
 
 const App = ({ history }) => {
   const [ likeBtnColor, setLikeBtnColor ] = useState('#808080');
+  const [ isLoading, setIsLoading ] = useState('false');
   const dispatch = useDispatch();
 
   const loginInfo = useSelector(state => state.userReducer);
@@ -49,6 +51,8 @@ const App = ({ history }) => {
     .catch((err) => {
       if (err) throw err;
     })
+
+    setIsLoading(false);
   }
 
   async function getSearchImages(query) {
@@ -115,6 +119,8 @@ const App = ({ history }) => {
       return;
     }
 
+    setIsLoading(true);
+
     await axios.post(`${process.env.REACT_APP_API_URL}/img/upload`, {
       filepath: imageUrl,
       description: query
@@ -154,6 +160,7 @@ const App = ({ history }) => {
 
   return (
     <div className="App">
+      <LoadingIndicator isLoading={isLoading}/>
       <Modal
         isOpen={messageModal.isModalOpen}
         content={messageModal.content}
