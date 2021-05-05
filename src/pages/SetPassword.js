@@ -1,10 +1,8 @@
 import React,{useState} from "react";
 import { Link, withRouter,useHistory } from "react-router-dom";
 import axios from "axios";
-import InputContainer from '../components/InputContainer';
-import { useDispatch, useSelector } from 'react-redux';
-import { setLoginStatus } from '../actions/index';
-import {refreshAccessToken} from '../functions/Request';        // 엑세스 토큰 재요청 함수
+import { useDispatch } from 'react-redux';
+import { setLoginStatus, setMessageModal } from '../actions/index';
 
 axios.defaults.withCredentials = true;
 
@@ -16,10 +14,7 @@ const SetPassword = ()=>{
   const[isValidPassword,setIsValidPassword] = useState(true)  // 비밀번호 유효성
   const[isPasswordSame,setIsPasswordSame] = useState(true)  // 비밀번호 재확인
   const[errorMessage,setErrorMessage] = useState('')
-  const state = useSelector(state=>state.userReducer);
-  const { loginStatus } = state
   const dispatch = useDispatch();
-  const {accessToken} = loginStatus
 
   const handlePasswordEdit = ()=>{
     axios.patch(process.env.REACT_APP_API_URL+'/user/userinfo',{ 
@@ -27,7 +22,7 @@ const SetPassword = ()=>{
     },{
       headers:{
         'Content-Type': 'application/json',
-        Authorization: `Bearer ${accessToken}`
+        Authorization: `Bearer ${localStorage.accessToken}`
       }
     })
     .then(resp=>{
@@ -35,7 +30,7 @@ const SetPassword = ()=>{
     })
     .catch((err)=>{
       if(err.response.status===401){              
-        refreshAccessToken( dispatch(setLoginStatus(accessToken)) )   //엑세스 토큰 재요청 
+        console.log(err)
       }
     })
   }
@@ -61,51 +56,75 @@ const SetPassword = ()=>{
     setErrorMessage('')
     }
   }
+  const handleWithdrawal = ()=>{              //회원 탈퇴 로직
+    axios.delete(process.env.REACT_APP_API_URL+'/user/userinfo',{
+        headers:{
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${localStorage.accessToken}`
+        } 
+      })
+      .then(resp=>{
+        dispatch(setLoginStatus(false));
+        localStorage.removeItem('accessToken');
+        dispatch(setMessageModal(true,'회원 탈퇴가 완료되었습니다.'))
+        history.push('/')
+      })
+      .catch((err)=>{
+        if(err.response.status===401){              
+          console.log(err)
+        }
+      })
+  }
 
   return(
       <div className='setting-user-info'>
+        <div className='setting-user-info-area'>
           <div className='profile-image-container'>
           </div>
           <div className='setting-center'>
-            <form onSubmit={(e) => e.preventDefault()}>
-              <div>
-                <div>새 비밀번호</div>
-                <InputContainer 
-                  type={'password'} 
-                  placeholder={null} 
-                  handler={setPassword} 
-                  validChecker={passwordChecker} 
-                  isValid={isValidPassword} 
-                />
-                <div>새 비밀번호 확인</div>
-                <InputContainer 
-                  type={'password'} 
-                  placeholder={null} 
-                  handler={setPasswordConfirm} 
-                  validChecker={samePasswordChecker} 
-                  isValid={isPasswordSame}
-                />
-              </div>
-              <button className='btn btn-edit' type='submit' onClick={handlePasswordEdit}>
+            <div className='setting-center-area'>
+                <label>새 비밀번호</label>
+                <input             
+                  className='setting-input-box'
+                  type='password'
+                  onChange={(e)=>setPassword(e.target.value)}
+                  onBlur={(e)=>passwordChecker(e.target.value)}
+                />  
+                <label>새 비밀번호 확인</label>
+                <input             
+                  className='setting-input-box'
+                  type='password'
+                  onChange={(e)=>setPasswordConfirm(e.target.value)}
+                  onBlur={(e)=>samePasswordChecker(e.target.value)}
+                />  
+                <button className='btn btn-edit' type='submit' onClick={handlePasswordEdit}>
                 변경
-              </button>
-            </form>
-            {
-              errorMessage.length>0 ?(
-                <span>{errorMessage}</span>
-              ):(
-                <span></span>
-              )
-            }
+                </button>
+                {
+                  errorMessage.length>0 ?(
+                  <span className='error-msg'>{errorMessage}</span>
+                  ):(
+                  <span className='error-msg-for-space'>비밀번호 수정</span>
+                  )
+                }
+            </div>
           </div>
           <div className='setting-link'>
-            <div>
-              <Link to='/setting/profile'>프로필 수정</Link>
-            </div>
-            <div>
-              <Link to='/setting/password'>비밀번호 변경</Link>
+            <div className='setting-link-area'>
+              <div className='setting-link-box'>
+                <Link to='/setting/profile'>프로필 수정</Link>
+              </div>
+              <div className='setting-link-box'>
+                <Link to='/setting/password'><strong>비밀번호 변경</strong></Link>
+              </div>
+              <div className='setting-link-box last'>
+                <button className='btn btn-withdrawal' onClick={handleWithdrawal}>
+                  회원탈퇴
+                </button>
+              </div>
             </div>
           </div>
+        </div>
       </div>
   )
 }

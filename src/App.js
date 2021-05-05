@@ -18,7 +18,6 @@ import Modal from "./components/Modal";
 
 import { imagesData } from "./fakeData/images";
 import { 
-  setImages,
   setLoginStatus,
   setImages,
   setSearchImages,
@@ -29,6 +28,7 @@ import {
   setSingleImage } from './actions/index';
 
 const App = ({ history }) => {
+  
   const dispatch = useDispatch();
 
   const loginInfo = useSelector(state => state.userReducer);
@@ -38,7 +38,6 @@ const App = ({ history }) => {
   const { images, searchImages, searchKeyword,
     isImageUploadModalOpen, messageModal,
     imageUrl, singleImage } = imageInfo;
-
   useEffect(() => getImages(), [])
 
   async function getImages() {
