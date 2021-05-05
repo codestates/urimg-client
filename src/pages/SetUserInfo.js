@@ -30,7 +30,8 @@ const SetUserInfo = ({handleFileChange, imageUrl})=>{
       } 
     })
     .then(resp=>{
-      history.push('/setting/profile')
+      dispatch(setMessageModal(true,'이름이 변경되었습니다.'))
+      history.push('/mypage')
     })
     .catch((err)=>{
       console.log(err)
@@ -49,7 +50,7 @@ const SetUserInfo = ({handleFileChange, imageUrl})=>{
       } 
     })
     .then(resp=>{
-      history.push('/setting/profile')
+      history.push('/mypage')
     })
     .catch((err)=>{
       if(err.response.status===401){              

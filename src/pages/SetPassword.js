@@ -26,6 +26,7 @@ const SetPassword = ()=>{
       }
     })
     .then(resp=>{
+      dispatch(setMessageModal(true,'비밀번호가 변경되었습니다.'))
       history.push('/setting/profile')
     })
     .catch((err)=>{
