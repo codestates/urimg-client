@@ -22,7 +22,7 @@ const ImageDetail = ({ image, isLogin, likeBtnColor, changeBtnColor, setDefaultC
     })
 
     if (isLogin) {
-      await axios.get(`${process.env.REACT_APP_API_URL}/img/like/?image_id=${image.id}}`, {
+      await axios.get(`${process.env.REACT_APP_API_URL}/img/like/?image_id=${image.id}`, {
         headers : {
           Authorization: `Bearer ${localStorage.accessToken}`
         }
