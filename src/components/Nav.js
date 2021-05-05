@@ -9,7 +9,7 @@ const Nav = ({ handleButtonClick, handleLogoClick, openModal, isLogin, profileIm
   const dispatch = useDispatch();
 
   if (!profileImage) {
-    profileImage = 'default-profile-picture_640.png'
+    profileImage = 'default-profile-picture_150.jpg'
   }
 
   async function logout() {
@@ -36,7 +36,7 @@ const Nav = ({ handleButtonClick, handleLogoClick, openModal, isLogin, profileIm
     <nav className="navbar">
       <div className="nav-logo-and-search">
         <div className="nav-logo"
-          style={{ backgroundImage: `url(${'logo.jpg'})` }} 
+          style={{ backgroundImage: `url(${'logo-black-short.jpg'})` }} 
           onClick={() => {handleLogoClick()}}>
         </div>
         <div className="nav-search">

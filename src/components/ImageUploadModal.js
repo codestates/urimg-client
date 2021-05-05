@@ -1,16 +1,16 @@
 import React from 'react';
 import ImageUpload from './ImageUpload';
 
-const Modal = ({ isOpen, close, handleFileChange, uploadImage, imageUrl }) => {
+const ImageUploadModal = ({ isOpen, close, handleFileChange, uploadImage, imageUrl }) => {
   return (
     <React.Fragment>
       { isOpen
         ? (
-        <div className="modal">
+        <div className="image-modal">
           <div className="modal-overlay" onClick={close} />
           <div className="modal-box">
           <div>
-          <img className="close-icon" src="close-icon.png" onClick={close} alt=""/>
+            <img className="close-icon" src="close-icon.png" onClick={close} alt=""/>
           </div>
             <div className="modal-content">
               <ImageUpload
@@ -28,4 +28,4 @@ const Modal = ({ isOpen, close, handleFileChange, uploadImage, imageUrl }) => {
   );
 }
 
-export default Modal;
+export default ImageUploadModal;

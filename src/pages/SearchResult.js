@@ -8,17 +8,19 @@ const SearchResult = ({ searchImages, searchKeyword, redirectToImage }) => {
   }
 
   return (
-    <div className="search-result">
+    <div className="search-result-box">
       <div className="search-headder">{searchKeyword}</div>
-      { searchImages.length === 0 ? (
-        <div>
-        검색 결과가 없습니다.
-        </div>
-      ) : (
-        <div>
-        검색 결과 {searchImages.length}건
-        </div>
-      )}
+      <div className="search-result">
+        { searchImages.length === 0 ? (
+          <div>
+          검색 결과가 없습니다.
+          </div>
+        ) : (
+          <div>
+          검색 결과 {searchImages.length}건
+          </div>
+        )}
+      </div>
       <ImageList images={searchImages} redirectToImage={redirectToImage}/>
     </div>
   )

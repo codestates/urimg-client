@@ -25,8 +25,8 @@ const Comment = ({userName, date, comment})=>{
     return(
         <div className='comment'>
             <div className='comment-userinfo'>
-                <span>{userName}</span>
-                <span>{timeForToday(date)}</span>
+                <div>{userName}</div>
+                <div>{timeForToday(date)}</div>
             </div>
             <div className='comment-content'>
                 <span>{comment}</span>
