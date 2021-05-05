@@ -39,7 +39,7 @@ const SetUserInfo = ({handleFileChange, imageUrl})=>{
 
   const handleProfileImgEdit = ()=>{
 
-    imageUrl=imageUrl.split(',')[1]
+    // imageUrl=imageUrl.split(',')[1]
     axios.patch(process.env.REACT_APP_API_URL+'/user/userinfo',{ 
       profile_image:imageUrl
     },{
