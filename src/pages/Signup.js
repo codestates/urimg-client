@@ -21,26 +21,37 @@ const Signup = ()=>{
     const[errorMessage, setErrorMessage] = useState('')
 
     const handleSignup = ()=>{
-       
+      let userState = {email,userName,password,passwordConfirm};
+      let data=[];
+      for(let ele in userState){
+        if (userState[ele].length>0){
+          data.push(ele)
+        }
+      }
+      if(data.length!==4){
+        setErrorMessage('모든 항목은 필수입니다')
+      }
+      else{
         axios.post(process.env.REACT_APP_API_URL+'/user/signup',{ // ec2 엔드포인드주소 
-            password,
-            user_name: userName,
-            email
-          },{
-            'Content-Type': 'application/json'             
-          })
-          .then(resp=>{
-            console.log('가입완료');
-            history.push('/')
-          })
-          .catch((err)=>{    // 중복일때 아직 안만듬
-            if(err.status===409){
-              setErrorMessage('중복된 이메일 입니다.')
-            }
-          })
-    }
+          password,
+          user_name: userName,
+          email
+        },{
+          'Content-Type': 'application/json'             
+        })
+        .then(resp=>{
+          console.log('가입완료');
+          history.push('/')
+        })
+        .catch((err)=>{    // 중복일때 아직 안만듬
+          if(err.response.status===409){
+            setErrorMessage('중복된 이메일 입니다.')
+          }
+        }) 
+      }
+       
+   }
   
-
     function emailChecker(email){     //이메일 양식 유효성
         const emailRegex = /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/i;
         const valid = emailRegex.test(email)
