@@ -3,19 +3,18 @@ import { Link, withRouter,useHistory } from "react-router-dom";
 import axios from "axios";
 import ProfileImgContainer from '../components/ProfileImgContainer';
 import { useDispatch, useSelector } from 'react-redux';
-import { setLoginStatus, setMessageModal } from '../actions/index';
+import { setLoginStatus, setMessageModal, getUserInfo } from '../actions/index';
 axios.defaults.withCredentials = true;
 
-const SetUserInfo = ({handleFileChange, imageUrl})=>{  
+const SetUserInfo = ({handleFileChange, imageUrl, profileImage, userinfo})=>{  
   const history = useHistory(); //  히스토리
   const[userName,setUserName] = useState('')
-  const state = useSelector(state=>state.userReducer);
-  const { userinfo } = state
+  // const state = useSelector(state=>state.userReducer);
+  // const { userinfo } = state
   const dispatch = useDispatch();
-  let profileImage = userinfo.profile_image
 
   if (!profileImage) {
-    profileImage = 'default-profile-picture_640.png'
+    profileImage = 'default-profile-picture_150.jpg'
   }
 
 
@@ -30,8 +29,8 @@ const SetUserInfo = ({handleFileChange, imageUrl})=>{
       } 
     })
     .then(resp=>{
+      dispatch(getUserInfo({...userinfo,user_name:userName}))
       dispatch(setMessageModal(true,'이름이 변경되었습니다.'))
-      history.push('/mypage')
     })
     .catch((err)=>{
       console.log(err)
@@ -39,8 +38,7 @@ const SetUserInfo = ({handleFileChange, imageUrl})=>{
   }
 
   const handleProfileImgEdit = ()=>{
-
-    // imageUrl=imageUrl.split(',')[1]
+    console.log(imageUrl)
     axios.patch(process.env.REACT_APP_API_URL+'/user/userinfo',{ 
       profile_image:imageUrl
     },{
@@ -50,6 +48,7 @@ const SetUserInfo = ({handleFileChange, imageUrl})=>{
       } 
     })
     .then(resp=>{
+      dispatch(getUserInfo({...userinfo,profile_image:imageUrl}))
       history.push('/mypage')
     })
     .catch((err)=>{
