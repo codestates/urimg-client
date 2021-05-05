@@ -5,8 +5,6 @@ import axios from "axios";
 
 import { imagesData } from "../fakeData/images";
 
-axios.defaults.withCredentials = true;
-
 const Mypage = ({ userInfo, isLogin, redirectToImage, history }) => {
   if (!isLogin) {
     history.push("/login");

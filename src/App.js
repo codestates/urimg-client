@@ -56,27 +56,21 @@ const App = ({ history }) => {
   }
 
   async function getSearchImages(query) {
-    // await axios.post(`${process.env.REACT_APP_API_URL}/img/search`, {
-    //   query: query
-    // }, {
-    //   headers : {
-    //     'Content-Type': 'application/json'
-    //   }
-    // })
-    // .then((res) => {
-    //   dispatch(setSearchKeyword(query));
-    //   dispatch(setSearchImages(res.data.data.images));
-    // })
-    // .catch((err) => {
-    //   if (err) throw err;
-    // });
+    await axios.post(`${process.env.REACT_APP_API_URL}/img/search`, {
+      query: query
+    }, {
+      headers : {
+        'Content-Type': 'application/json'
+      }
+    })
+    .then((res) => {
+      dispatch(setSearchKeyword(query));
+      dispatch(setSearchImages(res.data.data.images));
+    })
+    .catch((err) => {
+      if (err) throw err;
+    });
 
-    dispatch(setSearchKeyword(query));
-    dispatch(
-      setSearchImages(
-        images.filter(image => image.alt_description.includes(query))
-      )
-    );
     history.push("/search");
   }
 
@@ -108,7 +102,6 @@ const App = ({ history }) => {
   }
 
   async function uploadImage(query) {
-    console.log(query);
     if (!query) {
       dispatch(setMessageModal(true, '사진 설명을 입력해주세요.'));
       return;
