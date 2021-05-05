@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { Switch, Route, Redirect, withRouter } from "react-router-dom";
 import { useDispatch, useSelector } from 'react-redux';
 import axios from "axios";
@@ -18,7 +18,6 @@ import Modal from "./components/Modal";
 
 import { imagesData } from "./fakeData/images";
 import { 
-  setImages,
   setLoginStatus,
   setImages,
   setSearchImages,
@@ -29,6 +28,7 @@ import {
   setSingleImage } from './actions/index';
 
 const App = ({ history }) => {
+  const [ likeBtnColor, setLikeBtnColor ] = useState('#808080');
   const dispatch = useDispatch();
 
   const loginInfo = useSelector(state => state.userReducer);
@@ -42,15 +42,13 @@ const App = ({ history }) => {
   useEffect(() => getImages(), [])
 
   async function getImages() {
-    // await axios.get(`${process.env.REACT_APP_API_URL}/img/list`)
-    // .then((res) => {
-    //   dispatch(setImages(res.data.data.images));
-    // })
-    // .catch((err) => {
-    //   if (err) throw err;
-    // })
-
-    dispatch(setImages(imagesData));
+    await axios.get(`${process.env.REACT_APP_API_URL}/img/list`)
+    .then((res) => {
+      dispatch(setImages(res.data.data.images));
+    })
+    .catch((err) => {
+      if (err) throw err;
+    })
   }
 
   async function getSearchImages(query) {
@@ -106,35 +104,51 @@ const App = ({ history }) => {
   }
 
   async function uploadImage(query) {
-    // await axios.post(`${process.env.REACT_APP_API_URL}/img/upload`, {
-    //   filepath: imageUrl,
-    //   description: query
-    // }, {
-    //   headers : {
-    //     Authorization: `Bearer ${localStorage.accessToken}`
-    //   }
-    // })
-    // .then(() => {
-    //   dispatch(isModalOpen(true));
+    console.log(query);
+    if (!query) {
+      dispatch(setMessageModal(true, '사진 설명을 입력해주세요.'));
+      return;
+    }
 
-    //   dispatch(setIsImageUploadModalOpen(false));
-    // })
-    // .catch((err) => {
-    //   if (err.response.data === "Refresh token expired") {
-    //     dispatch(setLoginStatus(false));
-    //     localStorage.removeItem('accessToken');
-    //     history.push("/login");
-    //   }
-    //   if (err) throw err;
-    // })
+    if (!imageUrl){
+      dispatch(setMessageModal(true, '이미지를 업로드해주세요.'));
+      return;
+    }
 
-    dispatch(setMessageModal(true, '업로드가 완료되었습니다.'));
-    dispatch(setIsImageUploadModalOpen(false));
+    await axios.post(`${process.env.REACT_APP_API_URL}/img/upload`, {
+      filepath: imageUrl,
+      description: query
+    }, {
+      headers : {
+        Authorization: `Bearer ${localStorage.accessToken}`
+      }
+    })
+    .then(() => {
+      dispatch(setMessageModal(true, '사진 업로드가 완료되었습니다.'));
+      dispatch(setImageUrl(''));
+      dispatch(setIsImageUploadModalOpen(false));
+    })
+    .catch((err) => {
+      if (err.response.data === "Refresh token expired") {
+        dispatch(setLoginStatus(false));
+        localStorage.removeItem('accessToken');
+        history.push("/login");
+      }
+      if (err) throw err;
+    })
   }
 
   const redirectToImage = (image) => {
     dispatch(setSingleImage(image));
     history.push("/image");
+  }
+
+  const changeToLikedColor = () => {
+    setLikeBtnColor('#fd4f58');
+  }
+
+  const setDefaultColor = () => {
+    setLikeBtnColor('#808080');
   }
 
   return (
@@ -164,6 +178,7 @@ const App = ({ history }) => {
           <Main
             images={images}
             redirectToImage={redirectToImage}
+            setDefaultColor={setDefaultColor}
           />)}
         />
         <Route
@@ -185,7 +200,12 @@ const App = ({ history }) => {
         />
         <Route
         exact path='/mypage'
-        render={() => <Mypage userInfo={userinfo} isLogin={isLogin}/>}
+        render={() => 
+          <Mypage
+            userInfo={userinfo}
+            isLogin={isLogin}
+            redirectToImage={redirectToImage}
+          />}
         />
         <Route
         exact path='/setting/profile'
@@ -201,7 +221,14 @@ const App = ({ history }) => {
         />
         <Route
         exact path='/image'
-        render={() => <ImageDetail image={singleImage} isLogin={isLogin}/>}
+        render={() =>
+          <ImageDetail
+            image={singleImage}
+            isLogin={isLogin}
+            likeBtnColor={likeBtnColor}
+            changeBtnColor={changeToLikedColor}
+            setDefaultColor={setDefaultColor}
+          />}
         />
         <Route path='/' render={() => {
             return <Redirect to='/main' />;

@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { setMessageModal } from '../actions/index';
 
 const Search = ({ handleButtonClick }) => {
+  const dispatch = useDispatch();
   const [ queryString, setQueryString ] = useState('');
 
   const changeQueryString = (e) => {
@@ -15,8 +18,7 @@ const Search = ({ handleButtonClick }) => {
 
   const getSearchResult = () => {
     if (queryString === '') {
-      // 검색어 없이 검색 버튼 누르는 경우
-      // 추후 모달 컴포넌트 활용해 알림메세지 추가
+      dispatch(setMessageModal(true, '검색어를 입력해주세요.'))
       return;
     }
     handleButtonClick(queryString);
@@ -31,7 +33,7 @@ const Search = ({ handleButtonClick }) => {
         value={queryString}
         onChange={changeQueryString}
         onKeyDown={checkKeycode}
-        placeholder="Search image"
+        placeholder="사진 검색"
       />
       <button className="search-btn" onClick={getSearchResult} >
         <img src="https://img.icons8.com/ios-filled/50/000000/search--v1.png" alt="search-icon" />

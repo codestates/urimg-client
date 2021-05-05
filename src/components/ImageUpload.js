@@ -8,21 +8,6 @@ const ImageUpload = ({ handleFileChange, uploadImage, imageUrl }) => {
 
   return (
     <React.Fragment>
-      { imageUrl === '' ? (
-        <React.Fragment>
-          <label className="upload-area">
-            <input
-            id="input-file"
-            type="file"
-            accept='image/jpg, impge/png, image/jpeg'
-            onChange={handleFileChange}
-            />
-            <span>upload image</span>
-          </label>
-        </React.Fragment>
-      ) : (
-        <img className='image-preview' src={imageUrl} alt="" />
-      )}
       <input
         className="image-description"
         type="text"
@@ -30,8 +15,27 @@ const ImageUpload = ({ handleFileChange, uploadImage, imageUrl }) => {
         onChange={changeQueryString}
         placeholder="사진에 대해 설명해주세요"
       />
+      { imageUrl === '' ? (
+        <React.Fragment>
+          <label className="upload-area">
+            <input
+            id="input-file"
+            type="file"
+            accept='image/jpg, image/png, image/jpeg'
+            onChange={handleFileChange}
+            />
+            <span>클릭해서 사진 업로드</span>
+          </label>
+        </React.Fragment>
+      ) : (
+        <div className="upload-area">
+          <img className='image-preview' src={imageUrl} alt="" />
+        </div>
+
+      )}
+      
       <div>
-        <button className="input-submit-btn" onClick={() => {uploadImage(queryString)}}>Submit</button>
+        <button className="btn input-submit" onClick={() => {uploadImage(queryString)}}>업로드</button>
       </div>
     </React.Fragment>
   )

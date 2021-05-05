@@ -20,7 +20,7 @@ const Modal = ({ isOpen, content }) => {
             <div className="modal-content">
               {content}
             </div>
-            <button onClick={closeModal}>확인</button>
+            <button className="btn ok" onClick={closeModal}>확인</button>
           </div>
         </div>
         ) : (
