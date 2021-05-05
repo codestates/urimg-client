@@ -332,6 +332,7 @@ li {
   flex-direction: row;
   align-items: center;
   flex-basis: 46%;
+  margin-top: 65px;
 }
 .setting-input-box {
   width: 80%;
@@ -348,6 +349,7 @@ li {
   margin: 6px;
   padding: 6px;
   flex-grow: 1;
+  align-self: flex-start;
 }
 
 .setting-link {
