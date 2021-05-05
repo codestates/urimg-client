@@ -4,13 +4,15 @@ const CreateComment = ({handleComment})=>{
     const[comment,setCommnet] = useState('')
 
     return(
-        <div className='comment'>
+        <div className='comment-input-area'>
         <form>
           <textarea
-            placeholder='댓글쓰기'
+            className="comment-input"
+            placeholder='댓글 쓰기'
             onChange={(e)=>setCommnet(e.target.value)}
           />
-          <button 
+          <button
+            className="btn comment-submit"
             type='submit'
             onClick={()=>{handleComment(comment)}}            //상세페이지에서 포스트요청 함수 내려받아야함
           >

@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { withRouter } from "react-router-dom";
-import { useDispatch } from 'react-redux';
 import ImageList from "../components/ImageList";
 import axios from "axios";
 
@@ -8,42 +7,32 @@ import { imagesData } from "../fakeData/images";
 
 axios.defaults.withCredentials = true;
 
-const Mypage = ({ userInfo, isLogin, history }) => {
+const Mypage = ({ userInfo, isLogin, redirectToImage, history }) => {
   if (!isLogin) {
     history.push("/login");
   }
 
-  const dispatch = useDispatch();
   const [ images, setImages ] = useState([]);
   let profileImage = userInfo.profile_image;
 
   useEffect(() => getImages('upload'), [])
 
   const getImages = (type) => {
-    // axios.get(`${process.env.REACT_APP_API_URL}/img/mypage`, {
-    //   type: type
-    // }, {
-    //   headers : {
-    //     'Content-Type': 'application/json',
-    //     Authorization: `Bearer ${loginStatus.accessToken}`,
-    //     withCredentials: true
-    //   }
-    // })
-    // .then((res) => {
-    //   setImages(res.data.data.images)
-    // })
-    // .catch((err) => {
-    //   if(err.response.status === 401){              
-    //     // 리프레시 토큰으로 액세스 토큰 재발급
-    //   }
-    // })
-
-    const userImages = imagesData.filter((image) => image.user.id === userInfo.id );
-    setImages(userImages);
+    axios.get(`${process.env.REACT_APP_API_URL}/img/mypage/?type=${type}`, {
+      headers : {
+        Authorization: `Bearer ${localStorage.accessToken}`
+      }
+    })
+    .then((res) => {
+      setImages(res.data.data.images);
+    })
+    .catch((err) => {
+      if (err) throw err;
+    })
   }
 
   if (!profileImage) {
-    profileImage = 'default-profile-picture_640.png'
+    profileImage = 'default-profile-picture_150.jpg'
   }
 
   return (
@@ -54,9 +43,14 @@ const Mypage = ({ userInfo, isLogin, history }) => {
             style={{ backgroundImage: `url(${profileImage})` }}>
           </div>
           <div className="user-info">
-            <p>{userInfo.user_name}</p>
+            <p className="username">{userInfo.user_name}</p>
             <p>{userInfo.email}</p>
-            <button onClick={() => history.push("/setting/profile")}>회원정보 수정</button>
+            <button
+              className="btn userInfo-modify"
+              onClick={() => history.push("/setting/profile")
+            }>
+            회원정보 수정
+            </button>
           </div>
         </div>
         <div className="image-list-type">
@@ -65,7 +59,7 @@ const Mypage = ({ userInfo, isLogin, history }) => {
             <li onClick={() => getImages('like')}>Like</li>
           </ul>
         </div>
-        <ImageList images={images} />
+        <ImageList images={images} redirectToImage={redirectToImage} />
       </div>
     )
   }
