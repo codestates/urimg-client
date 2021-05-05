@@ -13,11 +13,7 @@ const ImageDetail = ({ image, isLogin, likeBtnColor, changeBtnColor, setDefaultC
   useEffect(() => getBasicData(), [])
 
   async function getBasicData() {
-    await axios.get(`${process.env.REACT_APP_API_URL}/img/comment`, {
-      image_id: image.id,
-    }, {
-      'Content-Type': 'application/json',
-    })
+    await axios.get(`${process.env.REACT_APP_API_URL}/img/comment?image_id=${image.id}`)
     .then ((res) => {
       setComments(res.data.comments);
     })

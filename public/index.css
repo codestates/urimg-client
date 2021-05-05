@@ -208,10 +208,12 @@ li:hover {
 /* Modal */
 .image-modal {
   z-index: 10;
+  animation: fadein 0.3s;
 }
 
 .modal {
   z-index: 20;
+  animation: fadein 0.3s;
 }
 
 .modal-overlay {
@@ -254,6 +256,15 @@ li:hover {
 .ok {
   width: 5rem;
   margin: 0.5rem auto 0.2rem auto;
+}
+
+@keyframes fadein {
+  from {
+      opacity: 0;
+  }
+  to {
+      opacity: 1;
+  }
 }
 
 /* ImageList */
@@ -347,7 +358,7 @@ li:hover {
 }
 
 .image-preview {
-  max-width: 90vw;
+  max-width: 80vw;
   max-height: 80vh;
 }
 

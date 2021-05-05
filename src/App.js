@@ -127,6 +127,7 @@ const App = ({ history }) => {
       dispatch(setMessageModal(true, '사진 업로드가 완료되었습니다.'));
       dispatch(setImageUrl(''));
       dispatch(setIsImageUploadModalOpen(false));
+      getImages();
     })
     .catch((err) => {
       if (err.response.data === "Refresh token expired") {
