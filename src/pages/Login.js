@@ -23,7 +23,8 @@ const Login = ()=>{
       'Content-Type': 'application/json'             
     })
     .then(resp=>{
-      dispatch(setLoginStatus(resp.data.data.access_token,true))
+      localStorage.setItem('accessToken', resp.data.data.access_token);
+      dispatch(setLoginStatus(true));   
       return axios.get(process.env.REACT_APP_API_URL+'/user/userinfo',{
         headers:{
           'Content-Type': 'application/json',

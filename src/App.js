@@ -212,8 +212,10 @@ const App = ({ history }) => {
         exact path='/setting/profile'
         render={() => (
           <SetUserInfo 
+            profileImage={userinfo.profile_image}
             handleFileChange={handleFileChange}
             imageUrl={imageUrl}
+            userinfo={userinfo}
           />)}
         />
         <Route
