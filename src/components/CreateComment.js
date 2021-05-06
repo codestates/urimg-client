@@ -1,26 +1,28 @@
-import React,{useState} from "react";
+import React, { useState } from "react";
 
-const CreateComment = ({handleComment})=>{              
-    const[comment,setCommnet] = useState('')
-
-    return(
-        <div className='comment-input-area'>
-        <form>
-          <textarea
-            className="comment-input"
-            placeholder='댓글 쓰기'
-            onChange={(e)=>setCommnet(e.target.value)}
-          />
-          <button
-            className="btn comment-submit"
-            type='submit'
-            onClick={()=>{handleComment(comment)}}            //상세페이지에서 포스트요청 함수 내려받아야함
-          >
-            <span>등록</span>
-          </button>
-        </form>
+const CreateComment = ({ handleComment })=>{
+  const [ comment, setCommnet ] = useState('');
+  const sendComment = () => {
+    handleComment(comment);
+    setCommnet('');
+  }
+  return(
+    <div className='comment-input-area'>
+    <textarea
+      className="comment-input"
+      placeholder='댓글 쓰기'
+      onChange={(e) => setCommnet(e.target.value)}
+      value={comment}
+    />
+    <div>
+      <button
+        className="btn comment-submit"
+        onClick={sendComment}>
+        등록
+      </button>
       </div>
-    )
+    </div>
+  )
 }
 
 export default CreateComment

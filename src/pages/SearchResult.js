@@ -12,8 +12,16 @@ const SearchResult = ({ searchImages, searchKeyword, redirectToImage }) => {
       <div className="search-headder">{searchKeyword}</div>
       <div className="search-result">
         { searchImages.length === 0 ? (
-          <div>
-          검색 결과가 없습니다.
+          <div className="no-serch-result">
+            <div>
+              검색 결과 0건
+            </div>
+            <div className="square-face-box">
+            <div className="square-face-box-small">
+              <img className="square-face"
+                src="sad-rounded-square-emoticon-200.png" alt="" />
+              </div>
+            </div>
           </div>
         ) : (
           <div>

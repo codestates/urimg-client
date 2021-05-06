@@ -8,10 +8,6 @@ import axios from "axios";
 const Nav = ({ handleButtonClick, handleLogoClick, openModal, isLogin, profileImage, history }) => {
   const dispatch = useDispatch();
 
-  if (!profileImage) {
-    profileImage = 'default-profile-picture_150.jpg'
-  }
-
   async function logout() {
     await axios.post(`${process.env.REACT_APP_API_URL}/user/logout`, null, {
       headers : {

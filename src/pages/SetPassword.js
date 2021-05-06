@@ -1,10 +1,8 @@
 import React,{useState} from "react";
-import { Link, withRouter,useHistory } from "react-router-dom";
+import { withRouter,useHistory } from "react-router-dom";
 import axios from "axios";
 import { useDispatch } from 'react-redux';
 import { setLoginStatus, setMessageModal } from '../actions/index';
-
-axios.defaults.withCredentials = true;
 
 const SetPassword = ()=>{ 
 
@@ -79,52 +77,42 @@ const SetPassword = ()=>{
 
   return(
       <div className='setting-user-info'>
-        <div className='setting-user-info-area'>
-          <div className='profile-image-container'>
-          </div>
-          <div className='setting-center'>
-            <div className='setting-center-area'>
-                <label>새 비밀번호</label>
-                <input             
-                  className='setting-input-box'
-                  type='password'
-                  onChange={(e)=>setPassword(e.target.value)}
-                  onBlur={(e)=>passwordChecker(e.target.value)}
-                />  
-                <label>새 비밀번호 확인</label>
-                <input             
-                  className='setting-input-box'
-                  type='password'
-                  onChange={(e)=>setPasswordConfirm(e.target.value)}
-                  onBlur={(e)=>samePasswordChecker(e.target.value)}
-                />  
-                <button className='btn btn-edit' type='submit' onClick={handlePasswordEdit}>
-                변경
-                </button>
-                {
-                  errorMessage.length>0 ?(
-                  <span className='error-msg'>{errorMessage}</span>
-                  ):(
-                  <span className='error-msg-for-space'>비밀번호 수정</span>
-                  )
-                }
+        <div className="password-modify-area">
+          <div className="bold-letter subject">새 비밀번호</div>
+            <input             
+              className='setting-input-box'
+              type='password'
+              onChange={(e)=>setPassword(e.target.value)}
+              onBlur={(e)=>passwordChecker(e.target.value)}
+            />  
+            <div className="bold-letter subject">새 비밀번호 확인</div>
+            <input             
+              className='setting-input-box'
+              type='password'
+              onChange={(e)=>setPasswordConfirm(e.target.value)}
+              onBlur={(e)=>samePasswordChecker(e.target.value)}
+            />  
+            {
+              errorMessage.length>0 ?(
+              <div className='error-msg'>{errorMessage}</div>
+              ):(
+              <div className='error-msg-for-space'>비밀번호 수정</div>
+              )
+            }
+            <div>
+              <button className='btn btn-edit' type='submit' onClick={handlePasswordEdit}>
+              변경
+              </button>
             </div>
-          </div>
-          <div className='setting-link'>
-            <div className='setting-link-area'>
-              <div className='setting-link-box'>
-                <Link to='/setting/profile'>프로필 수정</Link>
-              </div>
-              <div className='setting-link-box'>
-                <Link to='/setting/password'><strong>비밀번호 변경</strong></Link>
-              </div>
-              <div className='setting-link-box last'>
-                <button className='btn-withdrawal' onClick={handleWithdrawal}>
-                  회원탈퇴
-                </button>
-              </div>
-            </div>
-          </div>
+        </div>
+        <div className='setting-link'>
+          <div className='setting-link-box' onClick={() => {history.push('/setting/profile')}}>
+            프로필 수정</div>
+          <div className='setting-link-box bold-letter' onClick={() => {history.push('/setting/password')}}>
+            비밀번호 수정</div>
+          <button className='btn-withdrawal' onClick={handleWithdrawal}>
+            회원탈퇴
+          </button>
         </div>
       </div>
   )

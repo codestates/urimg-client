@@ -3,8 +3,6 @@ import { withRouter } from "react-router-dom";
 import ImageList from "../components/ImageList";
 import axios from "axios";
 
-import { imagesData } from "../fakeData/images";
-
 const Mypage = ({ userInfo, isLogin, redirectToImage, history }) => {
   if (!isLogin) {
     history.push("/login");
@@ -13,7 +11,7 @@ const Mypage = ({ userInfo, isLogin, redirectToImage, history }) => {
   const [ images, setImages ] = useState([]);
   let profileImage = userInfo.profile_image;
 
-  useEffect(() => getImages('upload'), [])
+  useEffect(() => getImages('upload'), []);
 
   const getImages = (type) => {
     axios.get(`${process.env.REACT_APP_API_URL}/img/mypage/?type=${type}`, {
@@ -27,10 +25,6 @@ const Mypage = ({ userInfo, isLogin, redirectToImage, history }) => {
     .catch((err) => {
       if (err) throw err;
     })
-  }
-
-  if (!profileImage) {
-    profileImage = 'default-profile-picture_150.jpg'
   }
 
   return (

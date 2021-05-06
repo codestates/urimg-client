@@ -99,7 +99,8 @@ const ImageDetail = ({ image, isLogin, likeBtnColor, changeBtnColor, setDefaultC
       }
     })
     .then(() => {
-      console.log('성공!')
+      dispatch(setMessageModal(true, '댓글을 등록했습니다.'));
+      getBasicData();
     })
     .catch((err) => {
       if (err.response.data === "Refresh token expired") {
