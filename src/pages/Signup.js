@@ -31,6 +31,9 @@ const Signup = ()=>{
       if(data.length!==4){
         setErrorMessage('모든 항목은 필수입니다')
       }
+      else if( !(isValidPassword && isValidEmail && isPasswordSame) ){
+        setErrorMessage('모든 항목을 올바르게 입력해 주세요.')
+      }
       else{
         axios.post(process.env.REACT_APP_API_URL+'/user/signup',{ // ec2 엔드포인드주소 
           password,

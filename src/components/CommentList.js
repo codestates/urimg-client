@@ -10,7 +10,7 @@ const CommentList = ({ comments })=>{
           <Comment 
             key={i} 
             userName={comment.user_name} 
-            date={comment.created_at} 
+            date={comment.createdAt} 
             comment={comment.comment}
           />
         )}
