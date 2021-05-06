@@ -37,3 +37,13 @@
 
 ### Server-Side flow chart
 ![](https://i.imgur.com/sNqzFNn.jpg)
+
+# 👥 우리를 소개합니다.
+|:---:|:---:|
+| 강정환 | Frontend |
+| 이기범 | Backend |
+| 이소임 | Frontend |
+
+# 🧐 For project details
+
+![checkout WIKI](https://github.com/codestates/urimg-client/wiki)
