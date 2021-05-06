@@ -47,4 +47,4 @@
 
 # 🧐 For project details
 
-![checkout WIKI](https://github.com/codestates/urimg-client/wiki)
+[checkout WIKI](https://github.com/codestates/urimg-client/wiki)
