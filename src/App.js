@@ -67,11 +67,6 @@ const App = ({ history }) => {
       dispatch(setSearchImages(res.data.data.images));
     })
     .catch((err) => {
-      if (err.response.status === 404) {
-        dispatch(setSearchKeyword(query));
-        dispatch(setSearchImages([]));
-        history.push("/search");
-      }
       if (err) throw err;
     });
 
