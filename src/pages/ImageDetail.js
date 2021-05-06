@@ -66,8 +66,7 @@ const ImageDetail = ({ image, isLogin, likeBtnColor, changeBtnColor, setDefaultC
       await axios.delete(`${process.env.REACT_APP_API_URL}/img/like/`, {
         data: {
           image_id: image.id
-        }
-      }, {
+        },
         headers : {
           'Content-Type': 'application/json',
           Authorization: `Bearer ${localStorage.accessToken}`
