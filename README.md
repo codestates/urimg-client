@@ -36,7 +36,7 @@
 ![](https://i.imgur.com/Ol0hk3B.jpg)
 
 ### Server-Side flow chart
-![](https://i.imgur.com/sNqzFNn.jpg)
+![](https://i.imgur.com/09T4H2p.jpg)
 
 # 👥 우리를 소개합니다.
 
